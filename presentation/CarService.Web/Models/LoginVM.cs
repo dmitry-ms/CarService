@@ -5,11 +5,14 @@ namespace CarService.Web.Models
 {
     public class LoginVM
     {
-        [BindRequired]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [BindRequired]
+        [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }

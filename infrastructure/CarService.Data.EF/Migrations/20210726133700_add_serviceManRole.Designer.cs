@@ -4,14 +4,16 @@ using CarService.Data.EF.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarService.Data.EF.Migrations
 {
     [DbContext(typeof(CarServiceDbContext))]
-    partial class CarServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210726133700_add_serviceManRole")]
+    partial class add_serviceManRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,93 +116,6 @@ namespace CarService.Data.EF.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.CarParameters.Parameters", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Parameters");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Parameters");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Costs.BaseCosts", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CarParametersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarParametersId");
-
-                    b.ToTable("BaseCosts");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseCosts");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Service", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CostsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ServiceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ServiceType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CostsId");
-
-                    b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("CarService.Entities.Orders.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("CarService.Entities.Users.Person", b =>
@@ -316,7 +231,7 @@ namespace CarService.Data.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Engines");
+                    b.ToTable("Engine");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Engine");
                 });
@@ -341,7 +256,7 @@ namespace CarService.Data.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transmissions");
+                    b.ToTable("Transmission");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Transmission");
                 });
@@ -484,82 +399,6 @@ namespace CarService.Data.EF.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("OrderService", b =>
-                {
-                    b.Property<Guid>("OrdersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ServicesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OrdersId", "ServicesId");
-
-                    b.HasIndex("ServicesId");
-
-                    b.ToTable("OrderService");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.CarParameters.Engine.EngineParameters", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.CarParameters.Parameters");
-
-                    b.Property<string>("EngineNames")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("EngineParameters");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Costs.Costs", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.Costs.BaseCosts");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<TimeSpan>("Time")
-                        .HasColumnType("time");
-
-                    b.HasDiscriminator().HasValue("Costs");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Costs.CostsByDriveUnit", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.Costs.BaseCosts");
-
-                    b.Property<decimal>("PriceByFourWheelDrive")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PriceByFrontWheelDriveOrMono")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("PriceByRearWheelDrive")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<TimeSpan>("TimeByFourWheelDrive")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("TimeByFrontWheelDriveOrMono")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan?>("TimeByRearWheelDrive")
-                        .HasColumnType("time");
-
-                    b.HasDiscriminator().HasValue("CostsByDriveUnit");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Costs.CostsByOneCylinder", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.Costs.BaseCosts");
-
-                    b.Property<decimal>("PriceByOneCylinder")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<TimeSpan>("TimeByOneCylinder")
-                        .HasColumnType("time");
-
-                    b.HasDiscriminator().HasValue("CostsByOneCylinder");
-                });
-
             modelBuilder.Entity("CarService.Entities.Users.Client", b =>
                 {
                     b.HasBaseType("CarService.Entities.Users.Person");
@@ -664,61 +503,6 @@ namespace CarService.Data.EF.Migrations
                     b.HasDiscriminator().HasValue("VariatorTransmission");
                 });
 
-            modelBuilder.Entity("CarService.Entities.CarsServices.CarParameters.Engine.ElectricEngineParameters", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.CarParameters.Engine.EngineParameters");
-
-                    b.Property<int?>("MaxBatteryCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinBatteryCapacity")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("ElectricEngineParameters");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.CarParameters.Engine.ICEngineParameters", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.CarParameters.Engine.EngineParameters");
-
-                    b.Property<int?>("MaxEngineVolume")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MaxNumberCylinders")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MaxNumberValves")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinEngineVolume")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinNumberCylinders")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinNumberValves")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("ICEngineParameters");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.CarParameters.Engine.DieselEngineParameters", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.CarParameters.Engine.ICEngineParameters");
-
-                    b.Property<bool?>("DEF")
-                        .HasColumnType("bit");
-
-                    b.HasDiscriminator().HasValue("DieselEngineParameters");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.CarParameters.Engine.PetrolEngineParameters", b =>
-                {
-                    b.HasBaseType("CarService.Entities.CarsServices.CarParameters.Engine.ICEngineParameters");
-
-                    b.HasDiscriminator().HasValue("PetrolEngineParameters");
-                });
-
             modelBuilder.Entity("CarService.Data.EF.Identity.CarServiceUser", b =>
                 {
                     b.HasOne("CarService.Entities.Users.Person", "Person")
@@ -726,33 +510,6 @@ namespace CarService.Data.EF.Migrations
                         .HasForeignKey("PersonId");
 
                     b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Costs.BaseCosts", b =>
-                {
-                    b.HasOne("CarService.Entities.CarsServices.CarParameters.Parameters", "CarParameters")
-                        .WithMany()
-                        .HasForeignKey("CarParametersId");
-
-                    b.Navigation("CarParameters");
-                });
-
-            modelBuilder.Entity("CarService.Entities.CarsServices.Service", b =>
-                {
-                    b.HasOne("CarService.Entities.CarsServices.Costs.BaseCosts", "Costs")
-                        .WithMany()
-                        .HasForeignKey("CostsId");
-
-                    b.Navigation("Costs");
-                });
-
-            modelBuilder.Entity("CarService.Entities.Orders.Order", b =>
-                {
-                    b.HasOne("CarService.Entities.Vehicles.ClientCar", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId");
-
-                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("CarService.Entities.Users.ServiceManRole", b =>
@@ -841,21 +598,6 @@ namespace CarService.Data.EF.Migrations
                     b.HasOne("CarService.Data.EF.Identity.CarServiceUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OrderService", b =>
-                {
-                    b.HasOne("CarService.Entities.Orders.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarService.Entities.CarsServices.Service", null)
-                        .WithMany()
-                        .HasForeignKey("ServicesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

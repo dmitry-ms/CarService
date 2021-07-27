@@ -2,41 +2,6 @@
 @{
     Layout = null;
 }
-@*<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Registration">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Name"></label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="LastName"></label><br />
-        <input asp-for="LastName" />
-        <span asp-validation-for="LastName"></span>
-    </div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input type="submit" value="Регистрация" />
-    </div>
-</form>*@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +41,7 @@
                             <div class="invalid-tooltip">Введите пароль. Пароль должен содержать минимум: 6 символов, 1 цифру и 1 заглавную букву.</div>
                         </div>
                         <div class="form-floating position-relative mb-3">
-                            <input type="password" class="form-control" id="floatingRepeatPassword" placeholder="Password" oninput="check(this)" required>
+                            <input type="password" class="form-control" id="floatingRepeatPassword" asp-for="PasswordConfirm" placeholder="Password" oninput="check(this)" required>
                             <label class="form-label" asp-for="PasswordConfirm"></label>
                             <div class="invalid-tooltip">Пароли не совпадают</div>
                         </div>
@@ -107,3 +72,42 @@
     <script src="~/js/registration.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+@*<h2>Регистрация нового пользователя</h2>
+    <form method="post" asp-controller="Account" asp-action="Registration">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Name"></label><br />
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div>
+            <label asp-for="LastName"></label><br />
+            <input asp-for="LastName" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="PasswordConfirm"></label><br />
+            <input asp-for="PasswordConfirm" />
+            <span asp-validation-for="PasswordConfirm"></span>
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" />
+        </div>
+    </form>*@

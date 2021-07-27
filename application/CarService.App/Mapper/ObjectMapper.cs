@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarService.App.Models;
 using CarService.Entities.Users;
+using CarService.Entities.Vehicles;
 using System;
 
 namespace CarService.App.Mapper
@@ -25,6 +26,11 @@ namespace CarService.App.Mapper
         public CarServiceDtoMapper()
         {
             CreateMap<RegistrationClientModel, Client>();             //.ForMember(...).ReverseMap();
+            CreateMap<ClientCar, ClientCarModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Vehicle.BrandName))
+                .ForMember(dest => dest.ModelName, opt => opt.MapFrom(src => src.Vehicle.ModelName))
+                .ForMember(dest => dest.MileageKM, opt => opt.MapFrom(src => src.MileageKM));
         }
     }
 }

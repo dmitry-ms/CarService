@@ -15,6 +15,11 @@ namespace CarService.Data.EF.Data.Configurations
             builder.Property(s => s.LastName)
                 .HasMaxLength(30)
                 .IsRequired();
+
+            builder.HasMany(r => r._roles)
+                .WithOne(s => s.ServiceMan);
+
+            builder.Ignore(s => s.Roles);
         }
     }
 }

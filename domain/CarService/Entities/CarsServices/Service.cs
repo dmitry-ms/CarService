@@ -1,11 +1,12 @@
-﻿using CarService.Entities.CarsServices.Costs;
+﻿using CarService.Entities.Base;
+using CarService.Entities.CarsServices.Costs;
 using CarService.Entities.Orders;
 using Domain.Enums;
 using System.Collections.Generic;
 
 namespace CarService.Entities.CarsServices
 {
-    public class Service
+    public class Service : Entity
     {
         public virtual BaseCosts Costs { get; set; }
         public ServiceType ServiceType { get; set; }

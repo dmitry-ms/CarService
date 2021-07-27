@@ -1,5 +1,6 @@
 using CarService.Data.EF.Data;
 using CarService.Data.EF.Identity;
+using CarService.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -47,8 +48,9 @@ namespace CarService.Web
 
                     var userManager = services.GetRequiredService<UserManager<CarServiceUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<CarServiceRole>>();
+                    var vehicleRepository = services.GetRequiredService<IVehicleRepository>();
 
-                    await CarServiceDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
+                    await CarServiceDbContextSeed.SeedDefaultUserAsync(userManager, roleManager, vehicleRepository);
                     //await CarServiceDbContextSeed.SeedSampleDataAsync(context);
 
                 }

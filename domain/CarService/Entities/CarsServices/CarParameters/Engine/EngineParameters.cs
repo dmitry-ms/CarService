@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace CarService.Entities.CarsServices.CarParameters.Engine
 {
-    public class EngineParameters : IParameters
+    public class EngineParameters : Parameters, IParameters
     {
-        public virtual IList<string> EngineNames { get; set; } = new List<string>();
+        public virtual IEnumerable<string> EngineNames { get; set; } = new List<string>();
 
-        public virtual bool IsAvailableFor(ClientCar car)
+        public override bool IsAvailableFor(ClientCar car)
         {
             var engine = car.Vehicle.Engine;
             bool result = true;

@@ -9,7 +9,8 @@ namespace CarService.App
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddTransient<IAccountService, AccountService>();
-
+            services.AddTransient<IClientCarService, ClientCarService>();
+            services.AddTransient<IClientService, ClientService>();
 
             return services;
         }

@@ -2,7 +2,7 @@
 
 namespace CarService.App.Models
 {
-    public class RegistrationAdmin : BaseRegistrationModel
+    public class RegistrationAdminModel : BaseRegistrationModel
     {
 
     }

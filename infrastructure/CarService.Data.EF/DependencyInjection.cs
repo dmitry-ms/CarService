@@ -38,7 +38,11 @@ namespace CarService.Data.EF
 
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+            services.AddScoped<IClientCarRepository, ClientCarRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IEngineRepository, EngineRepository>();
+            services.AddScoped<IServiceManRepository, ServiceManRepository>();
+            services.AddScoped<ITransmissionRepository, TransmissionRepository>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 

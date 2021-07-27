@@ -1,13 +1,13 @@
 ﻿using CarService.Entities.Base;
+using CarService.Entities.CarsServices.CarParameters;
 using CarService.Entities.Vehicles;
-using CarService.Interfaces;
 using System;
 
 namespace CarService.Entities.CarsServices.Costs
 {
     public abstract class BaseCosts : Entity
     {
-        public virtual IParameters CarParameters { get; set; }
+        public virtual Parameters CarParameters { get; set; }
 
         public abstract decimal GetPrice(ClientCar car);
         public abstract TimeSpan GetRequiredTime(ClientCar car);

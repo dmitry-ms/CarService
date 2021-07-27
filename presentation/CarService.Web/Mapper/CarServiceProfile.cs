@@ -9,6 +9,7 @@ namespace CarService.Web.Mapper
         public CarServiceProfile()
         {
             CreateMap<RegistrationClientVM, RegistrationClientModel>(); //.ReverseMap();
+            CreateMap<ClientCarModel, ClientCarVM>();
         }
     }
 }
