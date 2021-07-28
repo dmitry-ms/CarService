@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarService.Web.Models;
 using CarService.App.Models;
+using CarService.Data.EF.Identity;
 
 namespace CarService.Web.Mapper
 {
@@ -10,6 +11,7 @@ namespace CarService.Web.Mapper
         {
             CreateMap<RegistrationClientVM, RegistrationClientModel>(); //.ReverseMap();
             CreateMap<ClientCarModel, ClientCarVM>();
+            CreateMap<CarServiceUser, UserVM>();
         }
     }
 }

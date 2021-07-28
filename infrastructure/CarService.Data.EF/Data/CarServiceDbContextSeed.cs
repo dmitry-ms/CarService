@@ -44,19 +44,19 @@ namespace CarService.Data.EF.Data
             var users = userManager.Users;
             if (users.All(u => u.UserName != admin.UserName))
             {
-                await userManager.CreateAsync(admin, "admin");
+                await userManager.CreateAsync(admin, "1qaz2wsX");
                 await userManager.AddToRolesAsync(admin, new[] { adminRole.Name });
             }
             
             if (users.All(u => u.UserName != client.UserName))
             {
-                await userManager.CreateAsync(client, "client");
+                await userManager.CreateAsync(client, "1qaz2wsX");
                 await userManager.AddToRolesAsync(client, new[] { clientRole.Name });
             }
             
             if (users.All(u => u.UserName != serviceMan.UserName))
             {
-                await userManager.CreateAsync(serviceMan, "serviceMan");
+                await userManager.CreateAsync(serviceMan, "1qaz2wsX");
                 await userManager.AddToRolesAsync(serviceMan, new[] { serviceManRole.Name });
             }
 

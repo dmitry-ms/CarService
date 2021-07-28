@@ -1,52 +1,35 @@
 ﻿@model CarService.Web.Models.LoginVM
 @{
-    Layout = null;
+    ViewData["Title"] = "Вход";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/style.css">
-    <title>Вход</title>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-6 d-flex align-items-top justify-content-end vh-90">
-                    <form class="m-5 needs-validation" method="post" asp-controller="Account" asp-action="Login" novalidate>
-                        <h2 class="text-center m-5 ">Вход</h2>
-                        <div class="form-floating position-relative mb-3">
-                            <input type="email" class="form-control" id="floatingEmail" asp-for="Email" placeholder="name@example.com" maxlength="35" required>
-                            <label class="form-label" asp-for="Email"></label>
-                            <div class="invalid-tooltip">Введите адрес электронной почты</div>
-                        </div>
-                        <div class="form-floating position-relative mb-3">
-                            <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" maxlength="45" required>
-                            <label class="form-label" asp-for="Password"></label>
-                            <div class="invalid-tooltip">Введите пароль</div>
-                        </div>
-                        <div class="d-grid d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary">
-                                Вход
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
+<div class="container">
+    <div class="row">
+        <div class="d-flex align-items-top justify-content-center vh-90">
+            <form class="m-5 needs-validation col-4" method="post" asp-controller="Account" asp-action="Login" novalidate>
+                <h2 class="text-center m-5 ">Вход</h2>
+                <div class="form-floating position-relative mb-3">
+                    <input type="email" class="form-control" id="floatingEmail" asp-for="Email" placeholder="name@example.com" maxlength="35" required>
+                    <label class="form-label" asp-for="Email"></label>
+                    <div class="invalid-tooltip">Введите адрес электронной почты</div>
                 </div>
-                <div class="col-6">
-                    <img class="backGroundImg" src="~/img/carService.jpg" alt="backgroungImg">
+                <div class="form-floating position-relative mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" maxlength="45" required>
+                    <label class="form-label" asp-for="Password"></label>
+                    <div class="invalid-tooltip">Введите пароль</div>
                 </div>
-            </div>
+                <div class="d-grid d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">
+                        Вход
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
         </div>
-    </header>
+    </div>
+</div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/registration.js"></script>
-</body>
-</html>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

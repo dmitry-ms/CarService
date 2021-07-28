@@ -29,8 +29,12 @@ namespace CarService.Web
             
             
             services.AddControllersWithViews();
-            
-            
+
+            ////Ќастраиваем политику автроризации дл€ admin area
+            //services.AddAuthorization(x =>
+            //{
+            //    x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +60,7 @@ namespace CarService.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
