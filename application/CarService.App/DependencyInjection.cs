@@ -11,6 +11,7 @@ namespace CarService.App
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IClientCarService, ClientCarService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IVehicleService, VehicleService>();
 
             return services;
         }

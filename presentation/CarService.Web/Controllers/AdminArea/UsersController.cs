@@ -3,7 +3,6 @@ using CarService.Data.EF.Identity;
 using CarService.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,8 +24,7 @@ namespace CarService.Web.Controllers.AdminArea
 
         public IActionResult Index()
         {
-            return View(_mapper.Map<IEnumerable<UserVM>>(_userManager.Users.ToList()));
-            
+            return View(_mapper.Map<IEnumerable<UserVM>>(_userManager.Users.ToList()));            
         }
 
         public async Task<IActionResult> Edit(string userId)
@@ -55,7 +53,6 @@ namespace CarService.Web.Controllers.AdminArea
             if (user != null)
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
                 var addedRoles = roles.Except(userRoles);
                 var removedRoles = userRoles.Except(roles);
 
@@ -88,11 +85,6 @@ namespace CarService.Web.Controllers.AdminArea
         //{
         //    return View(_roleManager.Roles.ToList());
         //}
-
-
-
-
-
         //public IActionResult Create() => View();
         //[HttpPost]
         //public async Task<IActionResult> Create(string name)
@@ -114,7 +106,6 @@ namespace CarService.Web.Controllers.AdminArea
         //    }
         //    return View(name);
         //}
-
         //[HttpPost]
         //public async Task<IActionResult> Delete(string id)
         //{
@@ -125,9 +116,5 @@ namespace CarService.Web.Controllers.AdminArea
         //    }
         //    return RedirectToAction("Index");
         //}
-
-
-
-
     }
 }

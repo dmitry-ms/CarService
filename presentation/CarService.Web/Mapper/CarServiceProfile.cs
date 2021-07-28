@@ -12,6 +12,9 @@ namespace CarService.Web.Mapper
             CreateMap<RegistrationClientVM, RegistrationClientModel>(); //.ReverseMap();
             CreateMap<ClientCarModel, ClientCarVM>();
             CreateMap<CarServiceUser, UserVM>();
+            CreateMap<CreateDieselEngineVM, DieselEngineModel>();
+            CreateMap<EngineInfoModel, EngineInfoVM>();
+            
         }
     }
 }

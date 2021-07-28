@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-3 position-relative form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                    <label class="form-check-label" for="exampleCheck1">* Я соглашаюсь с <a href="">правилами использования сервиса</a> ,<br/> а также с передачей и обработкой моих данных </label>
+                    <label class="form-check-label" for="exampleCheck1">* Я соглашаюсь с <a href="">правилами использования сервиса</a> ,<br /> а также с передачей и обработкой моих данных </label>
                     <div class="invalid-tooltip">Необходимо подтвердить ваше согласие</div>
                 </div>
                 <div class="d-grid d-md-flex justify-content-md-end">
@@ -52,6 +52,10 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_AccountValidationScriptsPartial")
+}
 
 
 

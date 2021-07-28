@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EngineInfoVM>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Двигатели";
+}
+<h3>Доступные двигатели</h3>
+
+
+<a class="btn btn-sm btn-primary m-2" asp-action="Create">Добавить новый двигатель</a>   
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameEngine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnginePowerKW)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EngineType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameEngine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnginePowerKW)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngineType)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary mr-1" asp-action="Edit" asp-route-userid="@item.Id"> Редактировать</a>
+                <a class="btn btn-sm btn-primary mr-1" asp-action="Detail" asp-route-userid="@item.Id"> Детали</a>
+                <a class="btn btn-sm btn-primary mr-1" asp-action="Remove" asp-route-userid="@item.Id"> Удалить</a>
+                @*@Html.ActionLink("Редактировать", "Edit", new {id=item.Id}) |
+        @Html.ActionLink("Детали", "Details", new {id=item.Id}) |
+        @Html.ActionLink("Удалить", "Delete", new {id=item.Id})*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
