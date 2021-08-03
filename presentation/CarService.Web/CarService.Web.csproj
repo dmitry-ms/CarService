@@ -94,4 +94,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\ServiceMan\Controllers\" />
+    <Folder Include="Areas\ServiceMan\Views\" />
+  </ItemGroup>
+
 </Project>

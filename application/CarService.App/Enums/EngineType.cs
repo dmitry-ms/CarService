@@ -2,8 +2,8 @@
 {
     public enum EngineType
     {
-        DieselEngine,
-        PetrolEngine,
-        ElectricEngine
+        Diesel,
+        Petrol,
+        Electric
     }
 }

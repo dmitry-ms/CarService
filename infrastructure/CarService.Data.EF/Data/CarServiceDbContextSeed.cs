@@ -13,16 +13,12 @@ namespace CarService.Data.EF.Data
 {
     public static class CarServiceDbContextSeed
     {
-        private const string _adminRoleId = "8DF96E91-78E9-40B6-BB1A-AC8965D7208B";
-        private const string _clientRoleId = "F29263FB-893D-42B3-8DE4-A849F091E296";
-        private const string _serviceManRoleId = "8C022645-D365-4A46-A148-FBF0DB4E8B71";
-
         public static async Task SeedDefaultUserAsync(UserManager<CarServiceUser> userManager,
-            RoleManager<CarServiceRole> roleManager, IVehicleRepository vehicleRepository)
+            RoleManager<CarServiceRole> roleManager)
         {
-            var adminRole = new CarServiceRole { Id = _adminRoleId, Name = RoleNames.ADMIN };
-            var clientRole = new CarServiceRole { Id = _clientRoleId, Name = RoleNames.CLIENT };
-            var serviceManRole = new CarServiceRole{ Id = _serviceManRoleId, Name = RoleNames.SERVICEMAN};
+            var adminRole = new CarServiceRole { Id = Guid.NewGuid().ToString(), Name = RoleNames.ADMIN };
+            var clientRole = new CarServiceRole { Id = Guid.NewGuid().ToString(), Name = RoleNames.CLIENT };
+            var serviceManRole = new CarServiceRole{ Id = Guid.NewGuid().ToString(), Name = RoleNames.SERVICEMAN};
 
             if (roleManager.Roles.All(r => r.Name != adminRole.Name))
             {
@@ -58,9 +54,11 @@ namespace CarService.Data.EF.Data
             {
                 await userManager.CreateAsync(serviceMan, "1qaz2wsX");
                 await userManager.AddToRolesAsync(serviceMan, new[] { serviceManRole.Name });
-            }
+            }            
+        }
 
-
+        public static async Task SeedSampleDataAsync(IVehicleRepository vehicleRepository)
+        {
             var vehicles = await vehicleRepository.GetAllAsync();
             if (vehicles != null && vehicles.Count < 1)
             {

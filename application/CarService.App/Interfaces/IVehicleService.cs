@@ -6,7 +6,9 @@ namespace CarService.App.Interfaces
 {
     public interface IVehicleService
     {
-        public Task<EngineModel> CreateEngine(EngineModel model);
+        public Task<IEnumerable<VehicleInfoModel>> GetAllVehicles();
         public Task<IEnumerable<EngineInfoModel>> GetAllEngines();
+        public Task<IEnumerable<TransmissionInfoModel>> GetAllTransmissions();
+        public Task<EngineModel> CreateEngineAsync(EngineModel model);        
     }
 }

@@ -6,8 +6,6 @@ using CarService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
-using CarService.Interfaces;
 
 namespace CarService.App.Services
 {
@@ -24,42 +22,27 @@ namespace CarService.App.Services
             _engineRepository = engineRepository;
             _transmissionRepository = transmissionRepository;
         }
-
-
-
-
-
-        public async Task<EngineModel> CreateEngine(EngineModel model)
+        public async Task<IEnumerable<VehicleInfoModel>> GetAllVehicles()
         {
-            model.Id = Guid.NewGuid();
-            await _engineRepository.AddAsync(ObjectMapper.Mapper.Map<Engine>(model));
-            await _engineRepository.SaveChangesAsync();
-            return model;
+            var vehicles = await _vehicleRepository.GetAllAsync();
+            return ObjectMapper.Mapper.Map<IEnumerable<VehicleInfoModel>>(vehicles);
         }
         public async Task<IEnumerable<EngineInfoModel>> GetAllEngines()
         {
-            var engines = await _engineRepository.GetAllAsync();            
-            return ObjectMapper.Mapper.Map<IEnumerable<EngineInfoModel>>(engines); 
+            var engines = await _engineRepository.GetAllAsync();
+            return ObjectMapper.Mapper.Map<IEnumerable<EngineInfoModel>>(engines);
         }
- 
-
-
-
-        //public async Task<DieselEngineModel> CreateDieselEngine(DieselEngineModel model)
-        //{
-        //    model.Id = Guid.NewGuid();
-        //    _engineRepository.AddAsync()
-
-        //}
-        //public async Task<PetrolEngineModel> CreatePetrolEngine(PetrolEngineModel model)
-        //{
-        //    model.Id = Guid.NewGuid();
-        //}
-        //public async Task<ElectricEngineModel> CreateElectricEngine(ElectricEngineModel model)
-        //{
-        //    model.Id = Guid.NewGuid();
-        //}
-
-
+        public async Task<EngineModel> CreateEngineAsync(EngineModel model)
+        {
+            model.Id = Guid.NewGuid();
+            await _engineRepository.AddAsync(ObjectMapper.Mapper.Map<Engine>(model));
+            return model;
+        }
+        public async Task<IEnumerable<TransmissionInfoModel>> GetAllTransmissions()
+        {
+            var transmissions = await _transmissionRepository.GetAllAsync();
+            return ObjectMapper.Mapper.Map<IEnumerable<TransmissionInfoModel>>(transmissions);
+        }      
+        
     }
 }

@@ -10,6 +10,6 @@ namespace CarService.Entities.Users
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime BirthDay { get; set; }
-        public string Address { get; set; } //todo: Add class
+        public string Address { get; set; }
     }
 }

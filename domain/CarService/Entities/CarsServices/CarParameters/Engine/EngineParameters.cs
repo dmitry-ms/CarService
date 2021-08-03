@@ -13,7 +13,7 @@ namespace CarService.Entities.CarsServices.CarParameters.Engine
         {
             var engine = car.Vehicle.Engine;
             bool result = true;
-            if (EngineNames != null)
+            if (EngineNames.Count() > 0)
             {
                 result = EngineNames.ToList().Exists(n => n.ToLower() == engine.NameEngine.ToLower()); //TODO: is it right?
             }

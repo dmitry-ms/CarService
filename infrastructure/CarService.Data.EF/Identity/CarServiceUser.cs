@@ -9,6 +9,6 @@ namespace CarService.Data.EF.Identity
         public CarServiceUser() { }
         public CarServiceUser(string userName) : base(userName) { }
         public Guid? PersonId { get; set; }
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

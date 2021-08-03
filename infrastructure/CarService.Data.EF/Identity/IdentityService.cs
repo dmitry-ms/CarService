@@ -11,24 +11,22 @@ namespace CarService.Data.EF.Identity
 {
     public class IdentityService : IIdentityService
     {
+        //todo: разобраться с этим сервисом!!!
         private readonly UserManager<CarServiceUser> _userManager;
-        //private readonly SignInManager<CarServiceUser> _signInManager;
         private readonly IAuthorizationService _authorizationService;
 
         public IdentityService(UserManager<CarServiceUser> manager,
-            IAuthorizationService authorizationService,
-            SignInManager<CarServiceUser> signInManager)
+            IAuthorizationService authorizationService)
         {
             _userManager = manager;
             _authorizationService = authorizationService;
-            //_signInManager = signInManager;
         }
 
         public async Task<(IdentityResult, string)> CreateUserAsync(string userName, string password, string role, Person person)
         {
             var user = new CarServiceUser
             {
-                Id = Guid.NewGuid().ToString(),          //todo: так можно?
+                Id = Guid.NewGuid().ToString(),        
                 Email = userName,
                 UserName = userName,
                 Person = person
@@ -39,10 +37,9 @@ namespace CarService.Data.EF.Identity
             if (result.Succeeded)
             {
                 await AddUserToRoleAsync(user, role);
-                //await SignInAsync(user, false);
             };
 
-            return (result, user.Id);                     //todo: какой id вернет? где и когда он сгенерируется? есои не создать выше
+            return (result, user.Id);                     
         }
 
         internal async Task AddUserToRoleAsync(CarServiceUser user, string role)

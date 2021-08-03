@@ -40,7 +40,7 @@ namespace CarService.Entities.Users
 
     public class ServiceManRole : Entity
     {
-        public ServiceMan ServiceMan { get; set; }
+        public virtual ServiceMan ServiceMan { get; set; }
         public Enums.ServiceManRole Role { get; set; }
     }
 }

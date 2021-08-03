@@ -50,15 +50,15 @@ namespace CarService.Web
                     var roleManager = services.GetRequiredService<RoleManager<CarServiceRole>>();
                     var vehicleRepository = services.GetRequiredService<IVehicleRepository>();
 
-                    await CarServiceDbContextSeed.SeedDefaultUserAsync(userManager, roleManager, vehicleRepository);
-                    //await CarServiceDbContextSeed.SeedSampleDataAsync(context);
+                    await CarServiceDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
+                    await CarServiceDbContextSeed.SeedSampleDataAsync(vehicleRepository);
 
                 }
                 catch (Exception ex)
                 {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                    //var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-                    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+                    //logger.LogError(ex, "An error occurred while migrating or seeding the database.");
                     
                     throw;
                 }
