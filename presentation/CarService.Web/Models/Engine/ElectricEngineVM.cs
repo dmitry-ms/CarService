@@ -2,7 +2,7 @@
 
 namespace CarService.Web.Models
 {
-    public class CreateElectricEngineVM
+    public class ElectricEngineVM
     {
         [Required(ErrorMessage = "Введите название двигателя")]
         [Display(Name = "Название двигателя")]

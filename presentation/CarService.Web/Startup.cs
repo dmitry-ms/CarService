@@ -28,12 +28,9 @@ namespace CarService.Web
             
             
             services.AddControllersWithViews();
+            //services.AddDistributedMemoryCache();
+            //services.AddSession();
 
-            ////Ќастраиваем политику автроризации дл€ admin area
-            //services.AddAuthorization(x =>
-            //{
-            //    x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
-            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

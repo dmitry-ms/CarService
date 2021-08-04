@@ -1,4 +1,4 @@
-﻿@model CreatePetrolEngineVM
+﻿@model PetrolEngineVM
 
 @{
     ViewData["Title"] = "Новый двигатель";
@@ -7,44 +7,42 @@
 
 <h4>Добавление нового двигателя</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-controller="Engine" asp-action="CreatePetrolEngine" asp-antiforgery="true">
+<div class="row justify-content-center mt-2">
+    <div class="col-md-5">
+        <form method="post" asp-controller="Engine" asp-action="EditPetrolEngine" asp-route-returnController="@ViewBag.returnController" 
+              asp-route-returnAction="@ViewBag.returnAction" asp-antiforgery="true">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="NameEngine" class="control-label"></label>
                 <input asp-for="NameEngine" class="form-control" />
                 <span asp-validation-for="NameEngine" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="EnginePowerKW" class="control-label"></label>
                 <input asp-for="EnginePowerKW" class="form-control" />
                 <span asp-validation-for="EnginePowerKW" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="EngineVolumeSquareCentimeter" class="control-label"></label>
                 <input asp-for="EngineVolumeSquareCentimeter" class="form-control" />
                 <span asp-validation-for="EngineVolumeSquareCentimeter" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="NumberCylinders" class="control-label"></label>
                 <input asp-for="NumberCylinders" class="form-control" />
                 <span asp-validation-for="NumberCylinders" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 <label asp-for="NumberValves" class="control-label"></label>
                 <input asp-for="NumberValves" class="form-control" />
                 <span asp-validation-for="NumberValves" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 <input type="submit" value="Создать" class="btn btn-primary" />
+                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Вернуться к списку</a>
 </div>
 
 @section Scripts {

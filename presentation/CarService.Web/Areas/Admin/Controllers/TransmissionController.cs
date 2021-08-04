@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarService.App.Interfaces;
+using CarService.App.Models;
 using CarService.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,59 +24,76 @@ namespace CarService.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var transmissions = await _vehicleService.GetAllTransmissions();
+            var transmissions = await _vehicleService.GetAllTransmissionsAsync();
             return View(_mapper.Map<IEnumerable<TransmissionInfoVM>>(transmissions));
         }
 
-        //[HttpGet]
-        //public IActionResult CreateAutomaticTransmission()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult CreateAutomaticTransmission()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateAutomaticTransmission(CreateAutomaticTransmissionVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _vehicleService.CreateEngineAsync(_mapper.Map<DieselEngineModel>(model));
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateAutomaticTransmission(CreateAutomaticTransmissionVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _vehicleService.CreateTransmissionAsync(_mapper.Map<AutomaticTransmissionModel>(model));
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 
-        //[HttpGet]
-        //public IActionResult CreatePetrolEngine()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult CreateMechanicTransmission()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreatePetrolEngine(CreatePetrolEngineVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _vehicleService.CreateEngineAsync(_mapper.Map<PetrolEngineModel>(model));
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateMechanicTransmission(CreateMechanicTransmissionVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _vehicleService.CreateTransmissionAsync(_mapper.Map<MechanicTransmissionModel>(model));
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 
-        //[HttpGet]
-        //public IActionResult CreateElectricEngine()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult CreateRoboticTransmission()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateElectricEngine(CreateElectricEngineVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _vehicleService.CreateEngineAsync(_mapper.Map<ElectricEngineModel>(model));
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateRoboticTransmission(CreateRoboticTransmissionVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _vehicleService.CreateTransmissionAsync(_mapper.Map<RoboticTransmissionModel>(model));
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult CreateVariatorTransmission()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateVariatorTransmission(CreateVariatorTransmissionVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _vehicleService.CreateTransmissionAsync(_mapper.Map<VariatorTransmissionModel>(model));
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
     }
 }

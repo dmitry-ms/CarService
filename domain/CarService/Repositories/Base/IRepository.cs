@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarService.Repositories.Base
@@ -6,7 +7,7 @@ namespace CarService.Repositories.Base
     public interface IRepository<T> where T : class //todo: T: Entity
     {
         Task<IReadOnlyList<T>> GetAllAsync();        
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Guid id);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);

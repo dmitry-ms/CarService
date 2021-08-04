@@ -17,9 +17,9 @@ namespace CarService.Web.Models
         [Display(Name = "Двигатель")]
         public string EngineId { get; set; }
 
-        //[Required(ErrorMessage = "Выберете коробку передач или создайте")]
-        //[Display(Name = "Коробка передач")]
-        //public string TransmissionId { get; set; }
+        [Required(ErrorMessage = "Выберете коробку передач или создайте")]
+        [Display(Name = "Коробка передач")]
+        public string TransmissionId { get; set; }
 
         [Display(Name = "Кондиционер")]
         public bool AirConditioning { get; set; }

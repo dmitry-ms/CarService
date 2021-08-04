@@ -6,40 +6,93 @@
 
 <h4>Добавление нового автомобиля</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-controller="Vehicle" asp-action="Create" asp-antiforgery="true">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-2">
-                <label asp-for="BrandName" class="control-label"></label>
-                <input asp-for="BrandName" class="form-control" />
-                <span asp-validation-for="BrandName" class="text-danger"></span>
+<div class="row justify-content-center mt-2">
+    <div class="col-md-5">
+        <form class="needs-validation" method="post" asp-controller="Vehicle" asp-action="Create" asp-antiforgery="true" novalidate>
+            <div class="form-floating position-relative mb-4 col-8">
+                <input asp-for="BrandName" class="form-control" placeholder="BrandName">
+                <label asp-for="BrandName"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="BrandName"></span>
+                </div>
             </div>
-            <div class="form-group mb-2">
-                <label asp-for="ModelName" class="control-label"></label>
-                <input asp-for="ModelName" class="form-control" />
-                <span asp-validation-for="ModelName" class="text-danger"></span>
+            <div class="form-floating position-relative mb-4 col-8">
+                <input asp-for="ModelName" class="form-control" placeholder="ModelName">
+                <label asp-for="ModelName"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="ModelName"></span>
+                </div>
             </div>
-            <div class="form-group mb-2">
-                <label asp-for="EngineId" class="control-label"></label>
-                <select asp-for="EngineId" asp-items="ViewBag.Engines" class="form-select" on aria-label="Default select example">
-                    <option disabled selected>Выберите или создайте двигатель</option>
-                </select>                
+            <div class="row g-2 mb-4 align-items-center">
+                <div class="form-floating position-relative col-8">
+                    <select asp-for="EngineId" asp-items="ViewBag.Engines" class="form-select" aria-label="Engines">
+                        <option disabled selected>Выберите или добавьте двигатель</option>
+                    </select>
+                    <label asp-for="EngineId"></label>
+                    <div class="invalid-tooltip">
+                        <span asp-validation-for="EngineId"></span>
+                    </div>
+                </div>
+                <div class="dropdown col-auto">
+                    <button class="btn btn-outline-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Добавить
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            <a class="dropdown-item" asp-controller="Engine" asp-action="CreateEngine" asp-route-engineType="0"
+                               asp-route-returnController="Vehicle" asp-route-returnAction="Create">
+                                Дизельный двигатель
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="Engine" asp-action="CreateEngine" asp-route-engineType="1"
+                               asp-route-returnController="Vehicle" asp-route-returnAction="Create">
+                                Бензиновый двигатель
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="Engine" asp-action="CreateEngine" asp-route-engineType="2"
+                               asp-route-returnController="Vehicle" asp-route-returnAction="Create">
+                                Электрический двигатель
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row g-2 mb-4 align-items-center">
+                <div class="form-floating position-relative col-8">
+                    <select asp-for="TransmissionId" asp-items="ViewBag.Transmissions" class="form-select" aria-label="Transmissions">
+                        <option disabled selected>Выберите или добавьте коробку передач</option>
+                    </select>
+                    <label asp-for="TransmissionId"></label>
+                    <div class="invalid-tooltip">
+                        <span asp-validation-for="TransmissionId"></span>
+                    </div>
+                </div>
+                <div class="dropdown col-auto">
+                    <button class="btn btn-outline-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                        Добавить
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <li><a class="dropdown-item" asp-controller="Transmission" asp-action="CreateAutomaticTransmission">Автоматическую коробку передач</a></li>
+                        <li><a class="dropdown-item" asp-controller="Transmission" asp-action="CreateMechanicTransmission">Механическую коробку передач</a></li>
+                        <li><a class="dropdown-item" asp-controller="Transmission" asp-action="CreateRoboticTransmission">Роботизированную коробку передач</a></li>
+                        <li><a class="dropdown-item" asp-controller="Transmission" asp-action="CreateVariatorTransmission">Вариатор</a></li>
+
+                    </ul>
+                </div>
             </div>
             <div class="form-group form-check mb-4">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="AirConditioning" /> @Html.DisplayNameFor(model => model.AirConditioning)
                 </label>
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-4 col-8">
                 <input type="submit" value="Создать" class="btn btn-primary" />
+                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Вернуться к списку</a>
 </div>
 
 @section Scripts {

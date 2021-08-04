@@ -4,6 +4,7 @@ using CarService.App.Models;
 using CarService.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,62 +22,122 @@ namespace CarService.Web.Areas.Admin.Controllers
             _vehicleService = vehicleService;
             _mapper = mapper;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var engines = await _vehicleService.GetAllEngines();
+            var engines = await _vehicleService.GetAllEnginesAsync();
             return View(_mapper.Map<IEnumerable<EngineInfoVM>>(engines));
         }
 
         [HttpGet]
-        public IActionResult CreateDieselEngine()
+        public IActionResult CreateEngine(EngineTypeVM engineType, string returnController = null, string returnAction = null)
         {
-            return View();
+            ViewBag.returnController = returnController;
+            ViewBag.returnAction = returnAction;
+            switch (engineType)
+            {
+                case EngineTypeVM.DieselEngine:
+                    return View("CreateDieselEngine");
+                case EngineTypeVM.PetrolEngine:
+                    return View("CreatePetrolEngine");
+                case EngineTypeVM.ElectricEngine:
+                    return View("CreateElectricEngine");
+                default:
+                    return View(new ErrorViewModel());               //todo: Создать свою ErrorView
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateDieselEngine(CreateDieselEngineVM model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDieselEngine(DieselEngineVM model, string returnController = null,
+            string returnAction = null, string engineId = null)
         {
             if (ModelState.IsValid)
             {
-                await _vehicleService.CreateEngineAsync(_mapper.Map<DieselEngineModel>(model));
+                var engine = _mapper.Map<DieselEngineModel>(model);
+                if (string.IsNullOrEmpty(engineId))
+                {
+                    var result = await _vehicleService.CreateEngineAsync(engine);
+                    return returnController == null || returnAction == null ? RedirectToAction("Index")
+                        : RedirectToAction(returnAction, returnController, new
+                        {
+                            engineId = result.Id
+                        });
+                }
+                await _vehicleService.EditEngineAsync(new Guid(engineId), engine);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPetrolEngine(PetrolEngineVM model, string returnController = null,
+            string returnAction = null, string engineId = null)
+        {
+            if (ModelState.IsValid)
+            {
+                var engine = _mapper.Map<PetrolEngineModel>(model);
+                if (string.IsNullOrEmpty(engineId))
+                {
+                    var result = await _vehicleService.CreateEngineAsync(engine);
+                    return returnController == null || returnAction == null ? RedirectToAction("Index")
+                        : RedirectToAction(returnAction, returnController, new
+                        {
+                            engineId = result.Id
+                        });
+                }
+                await _vehicleService.EditEngineAsync(new Guid(engineId), engine);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditElectricEngine(ElectricEngineVM model, string returnController = null,
+            string returnAction = null, string engineId = null)
+        {
+            if (ModelState.IsValid)
+            {
+                var engine = _mapper.Map<ElectricEngineModel>(model);
+                if (string.IsNullOrEmpty(engineId))
+                {
+                    var result = await _vehicleService.CreateEngineAsync(engine);
+                    return returnController == null || returnAction == null ? RedirectToAction("Index")
+                        : RedirectToAction(returnAction, returnController, new
+                        {
+                            engineId = result.Id
+                        });
+                }
+                await _vehicleService.EditEngineAsync(new Guid(engineId), engine);
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult CreatePetrolEngine()
+        public async Task<IActionResult> Remove(string engineId)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreatePetrolEngine(CreatePetrolEngineVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                await _vehicleService.CreateEngineAsync(_mapper.Map<PetrolEngineModel>(model));
-                return RedirectToAction("Index");
-            }
-            return View(model);
+            await _vehicleService.RemoveEngineAsync(new Guid(engineId));
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult CreateElectricEngine()
+        public async Task<IActionResult> Edit(string engineId)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateElectricEngine(CreateElectricEngineVM model)
-        {
-            if (ModelState.IsValid)
+            ViewBag.engineId = engineId;
+            var model = await _vehicleService.GetEngineByIdAsync(new Guid(engineId));
+            switch (model)
             {
-                await _vehicleService.CreateEngineAsync(_mapper.Map<ElectricEngineModel>(model));
-                return RedirectToAction("Index");
-            }
-            return View(model);
+                case DieselEngineModel:
+                    return View("EditDieselEngine",_mapper.Map<DieselEngineVM>(model));
+                case PetrolEngineModel:
+                    return View("EditPetrolEngine", _mapper.Map<PetrolEngineVM>(model));
+                case ElectricEngineModel:
+                    return View("EditElectricEngine", _mapper.Map<ElectricEngineVM>(model));
+                default: return View(new ErrorViewModel());                 //todo: Создать свою ErrorView
+            }            
         }
     }
 }

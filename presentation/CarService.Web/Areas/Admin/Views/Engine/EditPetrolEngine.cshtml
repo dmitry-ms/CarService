@@ -1,16 +1,16 @@
-﻿@model DieselEngineVM
+﻿@model PetrolEngineVM
 
 @{
-    ViewData["Title"] = "Новый двигатель";
+    ViewData["Title"] = "Изменение двигателя";
 }
 
-<h4>Добавление нового двигателя</h4>
+
+<h4>Изменение двигателя</h4>
 <hr />
 <div class="row justify-content-center mt-2">
     <div class="col-md-5">
-        <form method="post" asp-controller="Engine" asp-action="EditDieselEngine" asp-route-returnController="@ViewBag.returnController" 
-              asp-route-returnAction="@ViewBag.returnAction" asp-antiforgery="true">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post" asp-controller="Engine" asp-action="EditPetrolEngine" asp-route-engineId="@ViewBag.engineId" asp-antiforgery="true">
+            
             <div class="form-group mb-2">
                 <label asp-for="NameEngine" class="control-label"></label>
                 <input asp-for="NameEngine" class="form-control" />
@@ -26,11 +26,6 @@
                 <input asp-for="EngineVolumeSquareCentimeter" class="form-control" />
                 <span asp-validation-for="EngineVolumeSquareCentimeter" class="text-danger"></span>
             </div>
-            <div class="form-group form-check mb-2">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="DEF" /> @Html.DisplayNameFor(model => model.DEF)
-                </label>
-            </div>
             <div class="form-group mb-2">
                 <label asp-for="NumberCylinders" class="control-label"></label>
                 <input asp-for="NumberCylinders" class="form-control" />
@@ -42,13 +37,12 @@
                 <span asp-validation-for="NumberValves" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <input type="submit" value="Создать" class="btn btn-primary" />
+                <input type="submit" value="Применить" class="btn btn-primary" />
                 <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
             </div>
         </form>
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

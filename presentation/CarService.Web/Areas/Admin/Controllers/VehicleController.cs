@@ -23,19 +23,23 @@ namespace CarService.Web.Controllers.AdminArea
             _vehicleService = vehicleService;
             _mapper = mapper;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var vehicles = await _vehicleService.GetAllVehicles();
+            var vehicles = await _vehicleService.GetAllVehiclesAsync();
             return View(_mapper.Map<IEnumerable<VehicleInfoVM>>(vehicles));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string engineId = null, string transmissionId = null)
         {
-            var engines = await _vehicleService.GetAllEngines();
-            ViewBag.Engines = new SelectList(engines, "Id", "NameEngine",null,"EngineType");
+            var engines = _mapper.Map<IEnumerable<EngineInfoVM>>(await _vehicleService.GetAllEnginesAsync());
+            ViewBag.Engines = new SelectList(engines, "Id", "NameEngine", engineId, "EngineType");
+
+            var transmissions = _mapper.Map<IEnumerable<TransmissionInfoVM>>(await _vehicleService.GetAllTransmissionsAsync());
+            ViewBag.Transmissions = new SelectList(transmissions, "Id", "Name", transmissionId, "TransmissionType");
+
             return View();
         }
 
@@ -44,44 +48,11 @@ namespace CarService.Web.Controllers.AdminArea
         {
             if (ModelState.IsValid)
             {
-                //await _vehicleService.CreateEngineAsync(_mapper.Map<DieselEngineModel>(model));
-                //return RedirectToAction("Index");
+                //await _vehicleService.CreateVehicleAsync(_mapper.Map<VehicleModel>(model));
+                return RedirectToAction("Index");
             }
             return View(model);
         }
 
-        //[HttpGet]
-        //public IActionResult CreatePetrolEngine()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> CreatePetrolEngine(CreatePetrolEngineVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _vehicleService.CreateEngineAsync(_mapper.Map<PetrolEngineModel>(model));
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
-
-        //[HttpGet]
-        //public IActionResult CreateElectricEngine()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public  async Task<IActionResult> CreateElectricEngine(CreateElectricEngineVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _vehicleService.CreateEngineAsync(_mapper.Map<ElectricEngineModel>(model));
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
     }
 }

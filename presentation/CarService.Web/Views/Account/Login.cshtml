@@ -1,35 +1,50 @@
-﻿@model CarService.Web.Models.LoginVM
+﻿@model LoginVM
 @{
     ViewData["Title"] = "Вход";
 }
-<div class="container">
-    <div class="row">
-        <div class="d-flex align-items-top justify-content-center vh-90">
-            <form class="m-5 needs-validation col-4" method="post" asp-controller="Account" asp-action="Login" novalidate>
-                <h2 class="text-center m-5 ">Вход</h2>
-                <div class="form-floating position-relative mb-3">
-                    <input type="email" class="form-control" id="floatingEmail" asp-for="Email" placeholder="name@example.com" maxlength="35" required>
-                    <label class="form-label" asp-for="Email"></label>
-                    <div class="invalid-tooltip">Введите адрес электронной почты</div>
+
+<div class="row">
+    <div class="d-flex align-items-top justify-content-center vh-90">
+        <form class="m-5 needs-validation col-4" method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true" novalidate>
+            <h2 class="text-center m-5 ">Вход</h2>
+            @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
+            {
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </symbol>
+                </svg>
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                    <div>@ViewData.ModelState[""].Errors.First().ErrorMessage</div>
                 </div>
-                <div class="form-floating position-relative mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" maxlength="45" required>
-                    <label class="form-label" asp-for="Password"></label>
-                    <div class="invalid-tooltip">Введите пароль</div>
+            }
+            <div class="form-floating position-relative mb-3">
+                <input asp-for="Email" class="form-control" placeholder="name@example.com">
+                <label asp-for="Email"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="Email"></span>
                 </div>
-                <div class="d-grid d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-primary">
-                        Вход
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                        </svg>
-                    </button>
+            </div>
+            <div class="form-floating position-relative mb-3">
+                <input asp-for="Password" class="form-control" placeholder="Password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" maxlength="45" required>
+                <label asp-for="Password"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="Password"></span>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="d-grid d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">
+                    Вход
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                    </svg>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
-    @await Html.PartialAsync("_AccountValidationScriptsPartial")
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

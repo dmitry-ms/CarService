@@ -49,6 +49,16 @@ namespace CarService.App.Mapper
             CreateMap<Engine, EngineInfoModel>()
                 .BeforeMap<ConvertEngineTypeToEnumAction>();
 
+            CreateMap<TransmissionModel, Transmission>()
+                .Include<AutomaticTransmissionModel, AutomaticTransmission>()
+                .Include<MechanicTransmissionModel, MechanicTransmission>()
+                .Include<RoboticTransmissionModel, RoboticTransmission>()
+                .Include<VariatorTransmissionModel, VariatorTransmission>()
+                .ReverseMap();
+            CreateMap<AutomaticTransmissionModel, AutomaticTransmission>().ReverseMap();
+            CreateMap<MechanicTransmissionModel, MechanicTransmission>().ReverseMap();
+            CreateMap<RoboticTransmissionModel, RoboticTransmission>().ReverseMap();
+            CreateMap<VariatorTransmissionModel, VariatorTransmission>().ReverseMap();
             CreateMap<Transmission, TransmissionInfoModel>()
                 .BeforeMap<ConvertTransmissionTypeToEnumAction>();
         }

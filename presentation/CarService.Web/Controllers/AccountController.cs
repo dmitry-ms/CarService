@@ -30,6 +30,7 @@ namespace CarService.Web.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(RegistrationClientVM model)
         {
             if (ModelState.IsValid)

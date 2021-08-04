@@ -6,14 +6,14 @@
 <h3>Доступные двигатели</h3>
 
 <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
         Добавить новый двигатель
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <a class="dropdown-item" asp-action="CreateDieselEngine">Дизельный</a>
-        <a class="dropdown-item" asp-action="CreatePetrolEngine">Бензиновый</a>
-        <a class="dropdown-item" asp-action="CreateElectricEngine">Электрический</a>
-    </div>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" asp-action="CreateEngine" asp-route-engineType="0">Дизельный</a></li>
+        <li><a class="dropdown-item" asp-action="CreateEngine" asp-route-engineType="1">Бензиновый</a></li>
+        <li><a class="dropdown-item" asp-action="CreateEngine" asp-route-engineType="2">Электрический</a></li>
+    </ul>
 </div>
 
 <table class="table">
@@ -44,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.EngineType)
             </td>
             <td>
-                <a class="btn btn-sm btn-info mr-1" asp-action="Details" asp-route-userid="@item.Id"> Подробней</a>
-                <a class="btn btn-sm btn-warning mr-1" asp-action="Edit" asp-route-userid="@item.Id"> Редактировать</a>
-                <a class="btn btn-sm btn-danger mr-1" asp-action="Remove" asp-route-userid="@item.Id"> Удалить</a>
+                <a class="btn btn-sm btn-info mr-1" asp-action="Details" asp-route-engineId="@item.Id"> Подробней</a>
+                <a class="btn btn-sm btn-warning mr-1" asp-action="Edit" asp-route-engineId="@item.Id"> Редактировать</a>
+                <a class="btn btn-sm btn-danger mr-1" asp-action="Remove" asp-route-engineId="@item.Id"> Удалить</a>   @*todo: добавить модальное окно*@
             </td>
         </tr>
 }

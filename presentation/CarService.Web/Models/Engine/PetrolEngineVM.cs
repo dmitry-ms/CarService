@@ -2,7 +2,7 @@
 
 namespace CarService.Web.Models
 {
-    public class CreateDieselEngineVM
+    public class PetrolEngineVM
     {
         [Required(ErrorMessage = "Введите название двигателя")]
         [Display(Name = "Название двигателя")]
@@ -15,9 +15,6 @@ namespace CarService.Web.Models
         [Required(ErrorMessage = "Введите обьем двигателя")]
         [Display(Name = "Обьем двигателя")]
         public int EngineVolumeSquareCentimeter { get; set; }
-
-        [Display(Name = "AdBlue")]
-        public bool DEF { get; set; }
 
         [Required(ErrorMessage = "Введите количество цилиндров")]
         [Display(Name = "Количество цилиндров")]
