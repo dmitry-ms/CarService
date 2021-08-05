@@ -1,0 +1,42 @@
+﻿@model EditRoboticTransmissionVM
+
+@{
+    ViewData["Title"] = "Изменение коробки передач";
+}
+
+
+<h4>Изменение коробки передач</h4>
+<hr />
+<div class="row justify-content-center mt-2">
+    <div class="col-md-5">
+        <form method="post" asp-controller="Transmission" asp-action="EditRoboticTransmission" asp-route-transmissionId="@ViewBag.transmissionId" asp-antiforgery="true">
+
+            <div>
+                <input asp-for="OldName" hidden />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="DriveUnit" class="control-label"></label>
+                <select asp-for="DriveUnit" asp-items="Html.GetEnumSelectList<DriveUnitVM>()" class="form-select"></select>
+                <span asp-validation-for="DriveUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="NumberOfGears" class="control-label"></label>
+                <input asp-for="NumberOfGears" class="form-control" />
+                <span asp-validation-for="NumberOfGears" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <input type="submit" value="Применить" class="btn btn-primary" />
+                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

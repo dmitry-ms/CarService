@@ -2,6 +2,7 @@
 using CarService.Data.EF.Repository.Base;
 using CarService.Entities.Vehicles;
 using CarService.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,21 @@ namespace CarService.Data.EF.Repository
 {
     public class VehicleRepository : Repository<Vehicle>, IVehicleRepository
     {
-        public VehicleRepository(CarServiceDbContext dbContext) :base(dbContext)
+        public VehicleRepository(CarServiceDbContext dbContext) : base(dbContext)
         { }
+
+        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(int pageIndex, int pageSize)
+        {
+            return await _dbContext.Vehicles.OrderBy(p => p.BrandName)
+                                .Skip(pageIndex * pageSize)
+                                .Take(pageSize)
+                                .ToListAsync();
+        }
+
+        public async Task<int> GetVehicleCount()
+        {
+            return await _dbContext.Vehicles.CountAsync();
+        }
 
         public Task<IEnumerable<Vehicle>> GetVehicleByBrandNameAsync(string brandName)
         {

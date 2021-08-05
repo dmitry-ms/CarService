@@ -1,4 +1,4 @@
-﻿@model DieselEngineVM
+﻿@model EditDieselEngineVM
 
 @{
     ViewData["Title"] = "Изменение двигателя";
@@ -9,7 +9,10 @@
 <div class="row justify-content-center mt-2">
     <div class="col-md-5">
         <form method="post" asp-controller="Engine" asp-action="EditDieselEngine" asp-route-engineId="@ViewBag.engineId" asp-antiforgery="true">
-            
+
+            <div>
+                <input asp-for="OldName" hidden />
+            </div>
             <div class="form-group mb-2">
                 <label asp-for="NameEngine" class="control-label"></label>
                 <input asp-for="NameEngine" class="form-control" />

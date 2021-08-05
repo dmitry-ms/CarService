@@ -14,7 +14,8 @@ namespace CarService.Web.Models
         public string ModelName { get; set; }
         [Display(Name = "двигателя")]
         public EngineInfoVM Engine { get; set; }
-        //public TransmissionInfoModel Transmission { get; set; }
+        [Display(Name = "коробки передач")]
+        public TransmissionInfoVM Transmission { get; set; }
         [Display(Name = "Кондиционер")]
         public bool AirConditioning { get; set; }
     }

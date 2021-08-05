@@ -8,9 +8,9 @@
 <hr />
 <div class="row justify-content-center mt-2">
     <div class="col-md-5">
-        <form method="post" asp-controller="Engine" asp-action="EditDieselEngine" asp-route-returnController="@ViewBag.returnController" 
+        <form method="post" asp-controller="Engine" asp-action="CreateDieselEngine" asp-route-returnController="@ViewBag.returnController"
               asp-route-returnAction="@ViewBag.returnAction" asp-antiforgery="true">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group mb-2">
                 <label asp-for="NameEngine" class="control-label"></label>
                 <input asp-for="NameEngine" class="form-control" />
@@ -43,7 +43,15 @@
             </div>
             <div class="form-group mb-4">
                 <input type="submit" value="Создать" class="btn btn-primary" />
-                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
+                @if (ViewBag.returnController != null || ViewBag.returnAction != null)
+                {
+                    <a class="btn btn-outline-danger float-end" asp-controller="@ViewBag.returnController"
+                       asp-action="@ViewBag.returnAction">Назад</a>
+                }
+                else
+                {
+                    <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
+                }
             </div>
         </form>
     </div>

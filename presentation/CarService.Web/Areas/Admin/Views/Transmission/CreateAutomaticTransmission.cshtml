@@ -1,4 +1,4 @@
-﻿@model CreateAutomaticTransmissionVM
+﻿@model AutomaticTransmissionVM
 
 @{
     ViewData["Title"] = "Новая коробка передач";
@@ -7,10 +7,11 @@
 
 <h4>Добавление новой коробки передач</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-controller="Transmission" asp-action="CreateAutomaticTransmission" asp-antiforgery="true">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row justify-content-center mt-2">
+    <div class="col-md-5">
+        <form method="post" asp-controller="Transmission" asp-action="CreateAutomaticTransmission"
+              asp-route-returnController=@ViewBag.returnController asp-route-returnAction=@ViewBag.returnAction asp-antiforgery="true">
+
             <div class="form-group mb-2">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -30,13 +31,18 @@
             </div>
             <div class="form-group mb-4">
                 <input type="submit" value="Создать" class="btn btn-primary" />
+                @if (ViewBag.returnController != null || ViewBag.returnAction != null)
+                {
+                    <a class="btn btn-outline-danger float-end" asp-controller="@ViewBag.returnController"
+                       asp-action="@ViewBag.returnAction">Назад</a>
+                }
+                else
+                {
+                    <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
+                }
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Вернуться к списку</a>
 </div>
 
 @section Scripts {

@@ -1,16 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CarService.Web.Models
 {
-    public class CreateVehicleVM
+    public class EditVehicleVM
     {
-        [Required(ErrorMessage = "Введите марку автомобиля")]
         [Display(Name = "Марка автомобиля")]
+        [Required(ErrorMessage = "Введите марку автомобиля")]        
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Длина строки должна быть от 2 до 30 символов")]
         public string BrandName { get; set; }
 
-        [Required(ErrorMessage = "Введите модель автомобиля")]
         [Display(Name = "Модель автомобиля")]
+        [Required(ErrorMessage = "Введите модель автомобиля")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Длина строки должна быть от 2 до 30 символов")]
         public string ModelName { get; set; }
 
         [Required(ErrorMessage = "Выберете двигатель или создайте")]

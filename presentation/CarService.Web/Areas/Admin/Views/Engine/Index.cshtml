@@ -44,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.EngineType)
             </td>
             <td>
-                <a class="btn btn-sm btn-info mr-1" asp-action="Details" asp-route-engineId="@item.Id"> Подробней</a>
-                <a class="btn btn-sm btn-warning mr-1" asp-action="Edit" asp-route-engineId="@item.Id"> Редактировать</a>
-                <a class="btn btn-sm btn-danger mr-1" asp-action="Remove" asp-route-engineId="@item.Id"> Удалить</a>   @*todo: добавить модальное окно*@
+                <a class="btn btn-sm btn-danger float-end" asp-action="Remove" asp-route-engineId="@item.Id"> Удалить</a>               @*todo: добавить модальное окно*@
+                <a class="btn btn-sm btn-warning me-2 float-end" asp-action="Edit" asp-route-engineId="@item.Id"> Редактировать</a>
+                @*<a class="btn btn-sm btn-info me-2 float-end" asp-action="Details" asp-route-engineId="@item.Id"> Подробней</a>*@     @*todo: вернуть эту кнопку или добавить всю инфу в таблицу*@
             </td>
         </tr>
 }

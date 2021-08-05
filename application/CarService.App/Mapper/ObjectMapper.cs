@@ -37,6 +37,8 @@ namespace CarService.App.Mapper
                 .ForMember(dest => dest.MileageKM, opt => opt.MapFrom(src => src.MileageKM));
 
             CreateMap<Vehicle, VehicleInfoModel>();
+
+            CreateMap<Vehicle, VehicleModel>().ReverseMap();
             
             CreateMap<EngineModel, Engine>()
                 .Include<DieselEngineModel, DieselEngine>()

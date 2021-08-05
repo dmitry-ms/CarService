@@ -6,15 +6,15 @@
 <h3>Доступные коробки передач</h3>
 
 <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
         Добавить новую коробку передач
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <a class="dropdown-item" asp-action="CreateAutomaticTransmission">Автоматическую</a>
-        <a class="dropdown-item" asp-action="CreateMechanicTransmission">Механическую</a>
-        <a class="dropdown-item" asp-action="CreateRoboticTransmission">Роботизированую</a>
-        <a class="dropdown-item" asp-action="CreateVariatorTransmission">Вариатор</a>
-    </div>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" asp-action="CreateTransmission" asp-route-transmissionType="0">Автоматическую</a></li>
+        <li><a class="dropdown-item" asp-action="CreateTransmission" asp-route-transmissionType="1">Механическую</a></li>
+        <li><a class="dropdown-item" asp-action="CreateTransmission" asp-route-transmissionType="2">Роботизированую</a></li>
+        <li><a class="dropdown-item" asp-action="CreateTransmission" asp-route-transmissionType="3">Вариатор</a></li>
+    </ul>
 </div>
 
 <table class="table">
@@ -46,9 +46,9 @@
                     @Html.DisplayFor(modelItem => item.TransmissionType)
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-info mr-1" asp-action="Details" asp-route-userid="@item.Id"> Подробней</a>
-                    <a class="btn btn-sm btn-warning mr-1" asp-action="Edit" asp-route-userid="@item.Id"> Редактировать</a>
-                    <a class="btn btn-sm btn-danger mr-1" asp-action="Remove" asp-route-userid="@item.Id"> Удалить</a>
+                    <a class="btn btn-sm btn-danger float-end" asp-action="Remove" asp-route-transmissionId="@item.Id"> Удалить</a>              @*todo: добавить модальное окно*@
+                    <a class="btn btn-sm btn-warning me-2 float-end" asp-action="Edit" asp-route-transmissionId="@item.Id"> Редактировать</a>
+                    @*<a class="btn btn-sm btn-info me-2 float-end" asp-action="Details" asp-route-userid="@item.Id"> Подробней</a>*@   @*todo: вернуть эту кнопку или добавить всю инфу в таблицу*@
                 </td>
             </tr>
         }

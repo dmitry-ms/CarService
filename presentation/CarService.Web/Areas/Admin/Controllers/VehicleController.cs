@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace CarService.Web.Controllers.AdminArea
 {
@@ -25,10 +26,14 @@ namespace CarService.Web.Controllers.AdminArea
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var vehicles = await _vehicleService.GetAllVehiclesAsync();
-            return View(_mapper.Map<IEnumerable<VehicleInfoVM>>(vehicles));
+            //var vehicles = await _vehicleService.GetAllVehiclesAsync();
+            //return View(_mapper.Map<IEnumerable<VehicleInfoVM>>(vehicles));            
+
+            var paginatedVehiclesModel = await _vehicleService.GetPaginatetVehiclesAsync(page);
+            var paginatedVehicleViewModel = _mapper.Map<PaginationVehicleViewModel>(paginatedVehiclesModel);
+            return View(paginatedVehicleViewModel);
         }
 
         [HttpGet]
@@ -44,15 +49,50 @@ namespace CarService.Web.Controllers.AdminArea
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateVehicleVM model)
+        public async Task<IActionResult> Create(EditVehicleVM model)
         {
             if (ModelState.IsValid)
             {
-                //await _vehicleService.CreateVehicleAsync(_mapper.Map<VehicleModel>(model));
+                await _vehicleService.CreateVehicleAsync(_mapper.Map<EditVehicleModel>(model));
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string vehicleId)
+        {
+            ViewBag.vehicleId = vehicleId;
+            var model = await _vehicleService.GetVehicleByIdAsync(new Guid(vehicleId));
+            var viewModel = _mapper.Map<EditVehicleVM>(model);  //заменить VM
+
+            var engines = _mapper.Map<IEnumerable<EngineInfoVM>>(await _vehicleService.GetAllEnginesAsync());
+            ViewBag.Engines = new SelectList(engines, "Id", "NameEngine", viewModel.EngineId, "EngineType");
+
+            var transmissions = _mapper.Map<IEnumerable<TransmissionInfoVM>>(await _vehicleService.GetAllTransmissionsAsync());
+            ViewBag.Transmissions = new SelectList(transmissions, "Id", "Name", viewModel.TransmissionId, "TransmissionType");
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditVehicleVM viewModel, string vehicleId)
+        {
+            if (ModelState.IsValid)
+            {
+                await _vehicleService.EditVehicleAsync(new Guid(vehicleId), _mapper.Map<EditVehicleModel>(viewModel));
+                return RedirectToAction("Index");
+            }
+            return View(viewModel);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Remove(string vehicleId)
+        {
+            await _vehicleService.RemoveVehicleAsync(new Guid(vehicleId));
+            return RedirectToAction("Index");
+        }
     }
 }
