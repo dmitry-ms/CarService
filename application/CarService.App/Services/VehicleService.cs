@@ -33,9 +33,9 @@ namespace CarService.App.Services
 
         public async Task<PaginationVehicleModel> GetPaginatetVehiclesAsync(int pageIndex)
         {
-            int pageSize = 3;
+            int pageSize = 10;
 
-            var vehiclesCount = await _vehicleRepository.GetVehicleCount();
+            var vehiclesCount = await _vehicleRepository.GetCountAsync();
             var paginatedVehicles = await _vehicleRepository.GetVehiclesAsync(pageIndex - 1, pageSize);
 
             var paginationPage = new PaginationPageModel(vehiclesCount, pageIndex, pageSize);

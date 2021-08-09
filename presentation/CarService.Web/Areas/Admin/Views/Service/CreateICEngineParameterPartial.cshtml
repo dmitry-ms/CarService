@@ -1,0 +1,30 @@
+﻿@model CommonEditServiceViewModel
+
+<div class="form-floating mb-2">
+    <input asp-for="parameterICEngine.MaxEngineVolume" class="form-control" placeholder="MaxEngineVolume">
+    <label asp-for="parameterICEngine.MaxEngineVolume"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterICEngine.MaxEngineVolume"></span>
+    </div>
+</div>
+<div class="form-floating mb-2">
+    <input asp-for="parameterICEngine.MinEngineVolume" class="form-control" placeholder="MinEngineVolume">
+    <label asp-for="parameterICEngine.MinEngineVolume"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterICEngine.MinEngineVolume"></span>
+    </div>
+</div>
+@*<div class="form-floating mb-2">
+    <input asp-for="parameterICEngineVM.MaxNumberCylinders" class="form-control" placeholder="MaxNumberCylinders">
+    <label asp-for="parameterICEngineVM.MaxNumberCylinders"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterICEngineVM.MaxNumberCylinders"></span>
+    </div>
+</div>
+<div class="form-floating mb-2">
+    <input asp-for="parameterICEngineVM.MinNumberCylinders" class="form-control" placeholder="MinNumberCylinders">
+    <label asp-for="parameterICEngineVM.MinNumberCylinders"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterICEngineVM.MinNumberCylinders"></span>
+    </div>
+</div>*@

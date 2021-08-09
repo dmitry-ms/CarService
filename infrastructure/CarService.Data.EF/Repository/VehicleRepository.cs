@@ -24,11 +24,6 @@ namespace CarService.Data.EF.Repository
                                 .ToListAsync();
         }
 
-        public async Task<int> GetVehicleCount()
-        {
-            return await _dbContext.Vehicles.CountAsync();
-        }
-
         public Task<IEnumerable<Vehicle>> GetVehicleByBrandNameAsync(string brandName)
         {
             throw new NotImplementedException();

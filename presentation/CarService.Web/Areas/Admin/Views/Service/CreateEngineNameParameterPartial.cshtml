@@ -1,0 +1,11 @@
+﻿@model CommonEditServiceViewModel
+
+<div class="form-floating mt-4 mb-2">
+    <select size="12" multiple="multiple" asp-for="parameterEngine.EngineNames" asp-items="ViewBag.EngiesNames" class="form-select h-100" aria-label="EnginesNames">
+        @*<option selected disabled></option>*@
+    </select>
+    <label asp-for="parameterEngine.EngineNames"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterEngine.EngineNames"></span>
+    </div>
+</div>

@@ -27,9 +27,11 @@ namespace CarService.Web
             services.AddAutoMapper(typeof(CarServiceProfile));
             
             
-            services.AddControllersWithViews();
-            //services.AddDistributedMemoryCache();
-            //services.AddSession();
+            services.AddControllersWithViews(); 
+
+
+            services.AddDistributedMemoryCache();     //experement
+            services.AddSession();                    //
 
         }
 
@@ -52,6 +54,7 @@ namespace CarService.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();            //experement
 
             app.UseEndpoints(endpoints =>
             {

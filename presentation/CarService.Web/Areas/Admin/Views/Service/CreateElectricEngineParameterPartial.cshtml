@@ -1,0 +1,15 @@
+﻿@model CommonEditServiceViewModel
+<div class="form-floating mb-2">
+    <input asp-for="parameterElectricEngine.MaxBatteryCapacity" class="form-control" placeholder="MaxBatteryCapacity">
+    <label asp-for="parameterElectricEngine.MaxBatteryCapacity"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterElectricEngine.MaxBatteryCapacity"></span>
+    </div>
+</div>
+<div class="form-floating mb-2">
+    <input asp-for="parameterElectricEngine.MinBatteryCapacity" class="form-control" placeholder="MinBatteryCapacity">
+    <label asp-for="parameterElectricEngine.MinBatteryCapacity"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="parameterElectricEngine.MinBatteryCapacity"></span>
+    </div>
+</div>

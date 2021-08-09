@@ -2,6 +2,7 @@
 using CarService.Web.Models;
 using CarService.App.Models;
 using CarService.Data.EF.Identity;
+using CarService.App.Models.Base;
 
 namespace CarService.Web.Mapper
 {
@@ -9,22 +10,23 @@ namespace CarService.Web.Mapper
     {
         public CarServiceProfile()
         {
+            CreateMap<PaginationPageModel, PaginationPageViewModel>();
+
             CreateMap<RegistrationClientVM, RegistrationClientModel>(); //.ReverseMap();
             CreateMap<ClientCarModel, ClientCarVM>();
             CreateMap<CarServiceUser, UserVM>();
 
-            
-            CreateMap<VehicleInfoModel, VehicleInfoVM>();
+            CreateMap<PaginationServiceModel, PaginationServiceViewModel>();
+            CreateMap<ServiceInfoModel, ServiceInfoViewModel>();
 
-            CreateMap<PaginationPageModel, PaginationPageViewModel>();
             CreateMap<PaginationVehicleModel, PaginationVehicleViewModel>();
-
+            CreateMap<VehicleInfoModel, VehicleInfoVM>();            
             CreateMap<EditVehicleVM, EditVehicleModel>();
             CreateMap<VehicleModel, EditVehicleVM>()
                 .ForMember(v => v.EngineId, opt => opt.MapFrom(v => v.Engine.Id))
                 .ForMember(v => v.TransmissionId, opt => opt.MapFrom(v => v.Transmission.Id));
 
-            
+            #region Engine
             CreateMap<EngineInfoModel, EngineInfoVM>();
 
             CreateMap<DieselEngineVM, DieselEngineModel>().ReverseMap();
@@ -40,8 +42,9 @@ namespace CarService.Web.Mapper
             CreateMap<ElectricEngineModel, EditElectricEngineVM>()
                 .ForMember(t => t.OldName, opt => opt.MapFrom(t => t.NameEngine))
                 .ReverseMap();
+            #endregion
 
-           
+            #region Transmission
             CreateMap<TransmissionInfoModel, TransmissionInfoVM>();
 
             CreateMap<AutomaticTransmissionVM, AutomaticTransmissionModel>().ReverseMap();
@@ -61,7 +64,22 @@ namespace CarService.Web.Mapper
             CreateMap<VariatorTransmissionModel, EditVariatorTransmissionVM>()
                 .ForMember(t => t.OldName, opt => opt.MapFrom(t => t.Name))
                 .ReverseMap();
+            #endregion
 
+            
+            CreateMap<EditServiceViewModel, EditServiceModel>();
+
+            CreateMap<BaseCostsViewModel, CostsModel>();
+            CreateMap<CostsByOneCylinderViewModel, CostsByOneCylinderModel>();
+            CreateMap<CostsByDriveUnitViewModel, CostsByDriveUnitModel>();
+
+            CreateMap<DieselEngineParameterViewModel, DieselEngineParametersModel>();
+            CreateMap<PetrolEngineParameterViewModel, PetrolEngineParametersModel>();
+            CreateMap<ElectricEngineParameterViewModel, ElectricEngineParametersModel>();
+            CreateMap<EngineParameterViewModel, EngineParametersModel>();
+            CreateMap<ICEngineParameterViewModel, ICEngineParametersModel>();
+
+            CreateMap<CommonEditServiceViewModel, CommonEditServiceModel>();
         }
     }
 }

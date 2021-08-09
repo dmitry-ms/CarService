@@ -1,0 +1,23 @@
+﻿@model CommonEditServiceViewModel
+
+
+<div class="form-floating mb-2">
+    <input asp-for="baseCost.Price" class="form-control" placeholder="Price">
+    <label asp-for="baseCost.Price"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="baseCost.Price"></span>
+    </div>
+</div>
+<div class="form-floating mb-2">
+    <input type="text" value="00:00" class="bs-timepicker form-control" asp-for="baseCost.Time" placeholder="Description">
+    <label asp-for="baseCost.Time"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="baseCost.Time"></span>
+    </div>
+</div>
+
+<script>
+$(function () {
+    $('.bs-timepicker').timepicker();
+});
+</script>

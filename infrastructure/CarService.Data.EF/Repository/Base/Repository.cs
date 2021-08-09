@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarService.Data.EF.Repository.Base
 {
-    public class Repository<T> : IRepository<T> where T : Entity  // todo: replace "class" to abstract class???
+    public class Repository<T> : IRepository<T> where T : Entity  
     {
         protected readonly CarServiceDbContext _dbContext;
 
@@ -17,6 +17,11 @@ namespace CarService.Data.EF.Repository.Base
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _dbContext.Set<T>().CountAsync();
         }
 
         public virtual async Task<T> GetByIdAsync(Guid id)

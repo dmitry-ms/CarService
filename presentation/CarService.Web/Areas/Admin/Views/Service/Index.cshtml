@@ -1,0 +1,60 @@
+﻿@model PaginationServiceViewModel
+
+@{
+    ViewData["Title"] = "Услуги";
+}
+
+<div>
+    <div class="d-inline-block"><h3>Доступные усуги</h3></div>
+    <div class="float-end">
+        <a class="btn btn-primary mr-2" asp-action="Create">Добавить новую услугу</a>
+    </div>
+</div>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Services.First().ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services.First().ServiceType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services.First().CostsType) 
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services.First().ParameterType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Services)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CostsType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParameterType)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger float-end" asp-controller="Service" asp-action="Remove" asp-route-vehicleId="@item.Id"> Удалить</a>              @*todo: добавить модальное окно*@
+                    <a class="btn btn-sm btn-warning me-2 float-end" asp-controller="Service" asp-action="Edit" asp-route-vehicleId="@item.Id"> Редактировать</a>
+                    <a class="btn btn-sm btn-info me-2 float-end"> Подробней</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<page-link page-model="Model.Page" page-action="Index"></page-link>
+
+

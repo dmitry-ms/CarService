@@ -1,6 +1,11 @@
 ﻿using AutoMapper;
 using CarService.App.Enums;
 using CarService.App.Models;
+using CarService.App.Models.Base;
+using CarService.Entities.CarsServices;
+using CarService.Entities.CarsServices.CarParameters;
+using CarService.Entities.CarsServices.CarParameters.Engine;
+using CarService.Entities.CarsServices.Costs;
 using CarService.Entities.Users;
 using CarService.Entities.Vehicles;
 using CarService.Entities.Vehicles.Parts.Engines;
@@ -37,7 +42,6 @@ namespace CarService.App.Mapper
                 .ForMember(dest => dest.MileageKM, opt => opt.MapFrom(src => src.MileageKM));
 
             CreateMap<Vehicle, VehicleInfoModel>();
-
             CreateMap<Vehicle, VehicleModel>().ReverseMap();
             
             CreateMap<EngineModel, Engine>()
@@ -63,6 +67,58 @@ namespace CarService.App.Mapper
             CreateMap<VariatorTransmissionModel, VariatorTransmission>().ReverseMap();
             CreateMap<Transmission, TransmissionInfoModel>()
                 .BeforeMap<ConvertTransmissionTypeToEnumAction>();
+
+            CreateMap<Service, ServiceInfoModel>()
+                .BeforeMap<ConvertServiceTypeToEnumAction>();            //!!??
+            CreateMap<EditServiceModel, Service>();
+            CreateMap<CostsModel, Costs>().ReverseMap();
+            CreateMap<CostsByDriveUnitModel, CostsByDriveUnit>().ReverseMap();
+            CreateMap<CostsByOneCylinderModel, CostsByOneCylinder>().ReverseMap();
+            CreateMap<DieselEngineParametersModel, DieselEngineParameters>().ReverseMap();
+            CreateMap<ElectricEngineParametersModel, ElectricEngineParameters>().ReverseMap();
+            CreateMap<EngineParametersModel, EngineParameters>().ReverseMap();
+            CreateMap<ICEngineParametersModel, ICEngineParameters>().ReverseMap();
+            CreateMap<PetrolEngineParametersModel, PetrolEngineParameters>().ReverseMap();
+        }
+
+        private class ConvertServiceTypeToEnumAction : IMappingAction<Service, ServiceInfoModel>
+        {
+            public void Process(Service source, ServiceInfoModel destination, ResolutionContext context)
+            {
+                switch(source.Costs)
+                {
+                    case Costs:
+                        destination.CostsType = CostsType.BaseCost;
+                        break;
+                    case CostsByDriveUnit:
+                        destination.CostsType = CostsType.CostByDriveUnit;
+                        break;
+                    case CostsByOneCylinder:
+                        destination.CostsType = CostsType.CostByOneCylinder;
+                        break;
+                }
+                switch (source.Costs.CarParameters)
+                {
+                    case null:
+                        destination.ParameterType = ParameterType.WithOutParameters;
+                        break;
+                    case DieselEngineParameters:
+                        destination.ParameterType = ParameterType.DieselEngine;
+                        break;
+                    case PetrolEngineParameters:
+                        destination.ParameterType = ParameterType.PetrolEngine;
+                        break;
+                    case ElectricEngineParameters:
+                        destination.ParameterType = ParameterType.ElectricEngine;
+                        break;
+                    case ICEngineParameters:
+                        destination.ParameterType = ParameterType.ICEngine;
+                        break;
+                    case EngineParameters:
+                        destination.ParameterType = ParameterType.EngineName;
+                        break;
+                }
+            }
         }
 
         private class ConvertEngineTypeToEnumAction : IMappingAction<Engine, EngineInfoModel>

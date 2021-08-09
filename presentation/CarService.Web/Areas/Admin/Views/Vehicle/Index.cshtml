@@ -4,15 +4,16 @@
     ViewData["Title"] = "Автомобили";
 }
 
-<h1>Доступные автомобили</h1>
-
 <div>
-    <a class="btn btn-primary mr-2" asp-action="Create">Добавить новый автомобиль</a>
-    <a class="btn btn-outline-info mr-2" asp-controller="Engine" asp-action="Index">Двигатели</a>
-    <a class="btn btn-outline-info mr-2" asp-controller="Transmission" asp-action="Index">Коробки передач</a>
+    <div class="d-inline-block"><h3>Доступные автомобили</h3></div>
+    <div class="float-end">
+        <a class="btn btn-primary mr-2" asp-action="Create">Добавить новый автомобиль</a>
+        <a class="btn btn-outline-info mr-2" asp-controller="Engine" asp-action="Index">Двигатели</a>
+        <a class="btn btn-outline-info mr-2" asp-controller="Transmission" asp-action="Index">Коробки передач</a>
+    </div>
 </div>
 
-<table class="table">
+<table class="table table-sm">
     <thead>
         <tr>
             <th>

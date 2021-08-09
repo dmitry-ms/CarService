@@ -10,10 +10,9 @@ namespace CarService.Repositories
         Task<IEnumerable<Vehicle>> GetVehicleListAsync();
         Task<IEnumerable<Vehicle>> GetVehicleByBrandNameAsync(string brandName);
         Task<IEnumerable<Vehicle>> GetVehiclesAsync(int pageIndex, int pageSize);
-        Task<int> GetVehicleCount();
 
 
-        //Task<Vehicle> GetVehicleWithEngineAsync(int vehicleId);              //example
+        //Task<Vehicle> GetVehicleWithEngineAsync(int vehicleId);        
         //Task<IEnumerable<Vehicle>> GetVehicleByEngineAsync(int engineId);
     }
 }

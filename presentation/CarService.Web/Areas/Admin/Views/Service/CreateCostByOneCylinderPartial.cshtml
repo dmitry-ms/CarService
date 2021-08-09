@@ -1,0 +1,23 @@
+﻿@model CommonEditServiceViewModel
+
+<div class="form-floating mb-2">
+    <input asp-for="costsByOneCylinder.PriceByOneCylinder" class="form-control" placeholder="Price">
+    <label asp-for="costsByOneCylinder.PriceByOneCylinder"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="costsByOneCylinder.PriceByOneCylinder"></span>
+    </div>
+</div>
+<div class="form-floating mb-2">
+    <input  type="text" value="00:00" class="bs-timepicker form-control" asp-for="costsByOneCylinder.TimeByOneCylinder" placeholder="Description">
+    <label asp-for="costsByOneCylinder.TimeByOneCylinder"></label>
+    <div class="invalid-tooltip">
+        <span asp-validation-for="costsByOneCylinder.TimeByOneCylinder"></span>
+    </div>
+</div>
+
+
+<script>
+$(function () {
+    $('.bs-timepicker').timepicker();
+});
+</script>
