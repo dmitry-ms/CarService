@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CarServicesViewModel>
+
+@{
+    ViewData["Title"] = "Панель администратора";
+}
+
+
+<div class="d-inline-block"><h3>Доступные усуги для вашего автомобиля</h3></div>
+
+
+@if (Model.Any())
+{
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ServiceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ServiceType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RequiredTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequiredTime)
+                </td>
+                <td>
+                    <div><a onclick="AddServiceToBasket(@item.Id)" class="btn btn-sm btn-warning mb-1 w-100 float-end">Добавить в корзину</a></div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*<page-link page-model="Model.Page" page-action="Index"></page-link>*@
+
+

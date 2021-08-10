@@ -20,6 +20,7 @@ namespace CarService.Web.Mapper
 
             CreateMap<PaginationServiceModel, PaginationServiceViewModel>();
             CreateMap<ServiceInfoModel, ServiceInfoViewModel>();
+            CreateMap<CarServicesModel, CarServicesViewModel>();
 
             CreateMap<PaginationVehicleModel, PaginationVehicleViewModel>();
             CreateMap<VehicleInfoModel, VehicleInfoVM>();            

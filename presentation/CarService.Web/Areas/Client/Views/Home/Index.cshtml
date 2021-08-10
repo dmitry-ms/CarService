@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.BrandName) @Html.DisplayFor(modelItem => item.ModelName)</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.MileageKM)</p>
-                        <a href="#" class="btn btn-outline-primary stretched-link float-end">Сервис</a>
+                        <a asp-controller="Service" asp-action="GetAllAvailableServicesForCar" asp-route-carId="@item.Id" class="btn btn-outline-primary stretched-link float-end">Сервис</a>
                     </div>
                 </div>
             </div>

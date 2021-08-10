@@ -9,6 +9,7 @@ using CarService.Entities.CarsServices.Costs;
 using CarService.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarService.App.Services
@@ -16,28 +17,63 @@ namespace CarService.App.Services
     public class ServiceManager : IServiceManager
     {
         private readonly IServiceRepository _serviceRepository;
+        private readonly IClientCarRepository _clientCarRepository;
 
-        public ServiceManager(IServiceRepository serviceRepository)
+        public ServiceManager(IServiceRepository serviceRepository, IClientCarRepository clientCarRepository)
         {
+            _clientCarRepository = clientCarRepository;
             _serviceRepository = serviceRepository;
         }
 
-        public Task<ServiceModel> CreateServiceAsync(EditServiceModel model)
+        public async Task<IEnumerable<CarServicesModel>> GetAllServicesForCarAsync(string carId)
         {
-            throw new NotImplementedException();
-        }      
+            var carEntity = await _clientCarRepository.GetByIdAsync(new Guid(carId));
+            var services = await _serviceRepository.GetAllAsync();
+
+            return services.Where(s => s.IsAvailableFor(carEntity))
+                .Select(s => new CarServicesModel
+                {
+                    Id = s.Id,
+                    ServiceName = s.ServiceName,
+                    Description = s.Description,
+                    ServiceType = s.ServiceType,
+                    Price = s.GetPrice(carEntity),
+                    RequiredTime = s.GetRequiredTime(carEntity)
+                })
+                .ToList();
+
+            //var carServices = new List<CarServicesModel>();
+
+            //foreach (var service in services)
+            //{
+            //    if (service.IsAvailableFor(carEntity))
+            //    {
+            //        var carServiceModel = new CarServicesModel
+            //        {
+            //            Id = service.Id,
+            //            ServiceName = service.ServiceName,
+            //            Description = service.Description,
+            //            ServiceType = service.ServiceType,
+            //            Price = service.GetPrice(carEntity),
+            //            RequiredTime = service.GetRequiredTime(carEntity)
+            //        };
+            //        carServices.Add(carServiceModel);
+            //    }
+            //}
+            //return carServices;
+        }
 
         public async Task<ServiceInfoModel> CreateServiceAsync(CommonEditServiceModel model)
         {
             var service = ObjectMapper.Mapper.Map<Service>(model.service);
             service.Id = Guid.NewGuid();
 
-            var costs = SelectCosts(model);            
+            var costs = SelectCosts(model);
             costs.Id = Guid.NewGuid();
             service.Costs = costs;
 
             var parameters = SelectParameters(model);
-            if(parameters !=null)parameters.Id = Guid.NewGuid();
+            if (parameters != null) parameters.Id = Guid.NewGuid();
             service.Costs.CarParameters = parameters;
 
             var resultEntity = await _serviceRepository.AddAsync(service);
