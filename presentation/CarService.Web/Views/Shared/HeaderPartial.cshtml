@@ -23,36 +23,15 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Контакты</a>
                     </li>
-
                 </ul>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <ul class="navbar-nav flex-grow-1 justify-content-end">
-                        <li class="nav-item">
-                            <a class="btn btn-primary me-md-2" asp-area="" asp-controller="Account" asp-action="Registration">Регистрация</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
-                        </li>
-                    </ul>
-                }
-                else
-                {
-                    <ul class="navbar-nav flex-grow-1 justify-content-end">
-                        <li class="nav-item">
-                            <a class="btn btn-light me-md-2" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
-                        </li>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="btn btn-primary me-md-2" asp-area="Admin" asp-controller="Home" asp-action="Index">Администрирование</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
-                        </li>
-                    </ul>
-                }
+                <ul class="navbar-nav flex-grow-1 justify-content-end">
+                    <li class="nav-item">
+                        <a class="btn btn-primary me-md-2" asp-area="" asp-controller="Account" asp-action="Registration">Регистрация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

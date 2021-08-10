@@ -1,7 +1,7 @@
 ﻿<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="Client" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/img/logo-1.png" alt="" width="50" height="30" class="d-inline-block align-text-top">
                 CarService
             </a>
@@ -12,23 +12,35 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Главная</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Пользователи</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">О нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Vehicle" asp-action="Index">Автомобили</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Наши услуги</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Service" asp-action="Index">Услуги</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Контакты</a>
                     </li>
 
                 </ul>
                 <ul class="navbar-nav flex-grow-1 justify-content-end">
                     <li class="nav-item">
-                        <a class="btn btn-light me-md-2" asp-area="" asp-controller="Home" asp-action="Index">@User.Identity.Name</a>
+                        <a class="btn btn-light me-md-2" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
                     </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-primary me-md-2" asp-area="Admin" asp-controller="Home" asp-action="Index">Администрирование</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("ServiceMan"))
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-primary me-md-2" asp-area="ServiceMan" asp-controller="Home" asp-action="Index">Мастерская</a>
+                        </li>
+                    }
                     <li class="nav-item">
                         <a class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
                     </li>

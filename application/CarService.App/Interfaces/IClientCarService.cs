@@ -7,6 +7,8 @@ namespace CarService.App.Interfaces
 {
     public interface IClientCarService
     {
-        public Task<IEnumerable<ClientCarModel>> GetAllClientCars(Guid clientId);
+        Task<IEnumerable<ClientCarModel>> GetAllClientCars(string clientId);
+
+        Task AddClientCarAsync(AddClientCarModel model);
     }
 }

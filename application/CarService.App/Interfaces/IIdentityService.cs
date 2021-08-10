@@ -8,7 +8,8 @@ namespace CarService.App.Interfaces
     public interface IIdentityService
     {
         Task<(IdentityResult Result, string UserId)> CreateUserAsync(string userName, string password, string role, Person person);
-        public Task AddUserToRoleAsync(Guid userId, string role);
+        Task AddUserToRoleAsync(Guid userId, string role);
+        public Task<string> GetUserPersonIdAsync(string userId);
 
 
         //Task<string> GetUserNameAsync(string userId);

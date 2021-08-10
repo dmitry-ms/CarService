@@ -2,7 +2,6 @@
 using CarService.Web.Models;
 using CarService.App.Models;
 using CarService.Data.EF.Identity;
-using CarService.App.Models.Base;
 
 namespace CarService.Web.Mapper
 {
@@ -12,8 +11,11 @@ namespace CarService.Web.Mapper
         {
             CreateMap<PaginationPageModel, PaginationPageViewModel>();
 
-            CreateMap<RegistrationClientVM, RegistrationClientModel>(); //.ReverseMap();
+            CreateMap<RegistrationClientVM, RegistrationClientModel>();
+            
             CreateMap<ClientCarModel, ClientCarVM>();
+            CreateMap<AddClientCarVM, AddClientCarModel>();
+            
             CreateMap<CarServiceUser, UserVM>();
 
             CreateMap<PaginationServiceModel, PaginationServiceViewModel>();

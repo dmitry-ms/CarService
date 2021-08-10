@@ -17,8 +17,6 @@ namespace CarService.Data.EF.Repository
         public async Task<IEnumerable<ClientCar>> GetAllClientCars(Guid clientId)
         {
             return await _dbContext.ClientCars
-                .Include(c => c.Client)
-                .Include(c => c.Vehicle)
                 .Where(c => c.Client.Id == clientId).ToListAsync();
         }
     }

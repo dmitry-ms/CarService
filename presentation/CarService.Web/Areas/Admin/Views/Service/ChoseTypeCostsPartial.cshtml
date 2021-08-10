@@ -1,7 +1,7 @@
 ﻿@model CommonEditServiceViewModel 
 
 <div class="form-floating  mb-2">
-    <select onchange="getCostPartial(this.value)" asp-for="service.CostsType" asp-items="Html.GetEnumSelectList(ViewBag.CostTypes)" class="form-select" aria-label="ServiceType"></select>
+    <select onchange="getCostPartial(this.value)" asp-for="service.CostsType" asp-items="Html.GetEnumSelectList(ViewBag.CostTypes)" class="form-select" aria-label="CostsType"></select>
     <label asp-for="service.CostsType" >Выберите зависимость стоимость</label>
     <span asp-validation-for="service.CostsType" class="text-danger"></span>
 </div>

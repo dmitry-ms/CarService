@@ -3,6 +3,7 @@ using CarService.Data.EF.Identity;
 using CarService.Entities.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,6 +52,16 @@ namespace CarService.Data.EF.Identity
             var user = await _userManager.FindByIdAsync(userId.ToString());
             await AddUserToRoleAsync(user, role);
         }
+        public async Task<string> GetUserPersonIdAsync(string userId)
+        {
+            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+            return user.PersonId.ToString();
+        }
+
+
+
+
         //internal async Task SignInAsync(CarServiceUser user, bool isPersistent)
         //{
         //    await _signInManager.SignInAsync(user, false);

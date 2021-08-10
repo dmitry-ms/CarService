@@ -8,7 +8,7 @@ namespace CarService.Data.EF.Identity
     {
         public CarServiceUser() { }
         public CarServiceUser(string userName) : base(userName) { }
-        public Guid? PersonId { get; set; }
+        public Guid? PersonId { get; set; }                          //todo: возмножно убрать ? нужно подумать
         public virtual Person Person { get; set; }
     }
 }

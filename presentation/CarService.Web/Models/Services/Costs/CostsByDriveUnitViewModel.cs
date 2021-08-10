@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarService.Web.Models
 {
-    public class CostsByDriveUnitViewModel : ICosts
+    public class CostsByDriveUnitViewModel
     {
         [DataType(DataType.Currency)]
         [Required(ErrorMessage ="Введите стоимость")]

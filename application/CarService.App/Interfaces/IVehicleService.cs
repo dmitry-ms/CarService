@@ -14,6 +14,10 @@ namespace CarService.App.Interfaces
         public Task EditVehicleAsync(Guid vehicleId, EditVehicleModel model);
         public Task RemoveVehicleAsync(Guid endineId);
 
+        public Task<IEnumerable<string>> GetBrandNamesAsync();
+        public Task<IEnumerable<string>> GetModelNamesAsync(string brand);
+        public Task<IEnumerable<Tuple<string, string>>> GetEnginesNamesAsync(string brand, string model);
+
         public Task<IEnumerable<EngineInfoModel>> GetAllEnginesAsync();
         public Task<EngineModel> GetEngineByIdAsync(Guid engineId);
         public Task<EngineModel> CreateEngineAsync(EngineModel model);

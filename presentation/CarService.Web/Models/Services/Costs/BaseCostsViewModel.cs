@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarService.Web.Models
 {
-    public class BaseCostsViewModel : ICosts
+    public class BaseCostsViewModel
     {
         [Required(ErrorMessage ="Введите стоимость услуги")]
         [Display(Name ="Стоимость услуги")]

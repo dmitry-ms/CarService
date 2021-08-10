@@ -52,7 +52,7 @@ namespace CarService.App.Services
 
         public async Task<PaginationServiceModel> GetPaginatetServicesAsync(int pageIndex)
         {
-            int pageSize = 10;
+            int pageSize = 4;
 
             var serviceCount = await _serviceRepository.GetCountAsync();
             var paginatedServices = await _serviceRepository.GetServicesAsync(pageIndex - 1, pageSize);

@@ -1,7 +1,7 @@
 ﻿@model PaginationServiceViewModel
 
 @{
-    ViewData["Title"] = "Услуги";
+    ViewData["Title"] = "Панель администратора";
 }
 
 <div>
@@ -11,49 +11,52 @@
     </div>
 </div>
 
-<table class="table table-sm">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Services.First().ServiceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Services.First().ServiceType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Services.First().CostsType) 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Services.First().ParameterType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Services)
-        {
+@if (Model.Services.Any())
+{
+    <table class="table table-sm">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CostsType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParameterType)
-                </td>
-                <td>
-                    <a class="btn btn-sm btn-danger float-end" asp-controller="Service" asp-action="Remove" asp-route-vehicleId="@item.Id"> Удалить</a>              @*todo: добавить модальное окно*@
-                    <a class="btn btn-sm btn-warning me-2 float-end" asp-controller="Service" asp-action="Edit" asp-route-vehicleId="@item.Id"> Редактировать</a>
-                    <a class="btn btn-sm btn-info me-2 float-end"> Подробней</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.First().ServiceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.First().ServiceType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.First().CostsType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.First().ParameterType)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Services)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CostsType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParameterType)
+                    </td>
+                    <td>
+                        <div><a class="btn btn-sm btn-info mb-1 w-100 float-end"> Подробней</a></div>
+                        <div><a class="btn btn-sm btn-warning mb-1 w-100 float-end" asp-controller="Service" asp-action="Edit" asp-route-vehicleId="@item.Id"> Редактировать</a></div>
+                        <div><a class="btn btn-sm btn-danger mb-1 w-100 float-end" asp-controller="Service" asp-action="Remove" asp-route-vehicleId="@item.Id"> Удалить</a></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 <page-link page-model="Model.Page" page-action="Index"></page-link>
 

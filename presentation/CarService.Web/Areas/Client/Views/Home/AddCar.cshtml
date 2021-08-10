@@ -1,0 +1,84 @@
+﻿@model AddClientCarVM
+
+@{
+    ViewData["Title"] = "Ваш гараж";
+}
+
+<h4>Добавление нового автомобиля</h4>
+<hr />
+<div class="row justify-content-center mt-2">
+    <div class="col-md-5">
+        <form class="needs-validation" id="add_ClientCar" method="post" asp-controller="Home" asp-action="AddCar" asp-antiforgery="true" novalidate>
+            @*<div class="validation" asp-validation-summary="All"></div>*@
+            <div class="form-floating mb-2">
+                <select onchange="getModels(this.value)" id="modelBrand" asp-for="Brand" asp-items="ViewBag.brandNames" class="form-select" aria-label="CarBrand">
+                    <option selected disabled>Выберите марку</option>
+                </select>
+                <label asp-for="Brand"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="Brand"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-2">
+                <select onchange="getEngines(this.value)" id="modelSelect" asp-for="Model" class="form-select" aria-label="CarModel">
+                    <option selected disabled></option>
+                    <option disabled>Сначала выберите марку</option>
+                </select>
+                <label asp-for="Model"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="Model"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-2">
+                <select id="engineSelect" asp-for="VehicleId" class="form-select" aria-label="CarEngine">
+                    <option selected disabled></option>
+                    <option disabled>Сначала выберите марку и модель</option>
+                </select>
+                <label asp-for="VehicleId"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="VehicleId"></span>
+                </div>
+            </div>
+            <div id="result_get_models"></div>
+            <div class="form-floating mb-2">
+                <input type="month" asp-for="YearProduction" class="form-control" placeholder="YearProduction">
+                <label asp-for="YearProduction"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="YearProduction"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="VinNumber" class="form-control" placeholder="VinNumber">
+                <label asp-for="VinNumber"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="VinNumber"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="CarPlate" class="form-control" placeholder="CarPlate">
+                <label asp-for="CarPlate"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="CarPlate"></span>
+                </div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="number" asp-for="MileageKM" class="form-control" placeholder="MileageKM">
+                <label asp-for="MileageKM"></label>
+                <div class="invalid-tooltip">
+                    <span asp-validation-for="MileageKM"></span>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/clientCarAjax.js" type="text/javascript"></script>
+}

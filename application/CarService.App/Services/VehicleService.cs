@@ -24,6 +24,24 @@ namespace CarService.App.Services
             _engineRepository = engineRepository;
             _transmissionRepository = transmissionRepository;
         }
+
+        public Task<IEnumerable<string>> GetBrandNamesAsync()
+        {
+            return _vehicleRepository.GetBrandNamesAsync();
+        }
+
+        public Task<IEnumerable<string>> GetModelNamesAsync(string brand)
+        {
+            return _vehicleRepository.GetModelNamesAsync(brand);
+        }
+
+        public async Task<IEnumerable<Tuple<string,string>>> GetEnginesNamesAsync(string brand, string model)
+        {
+            return await _vehicleRepository.GetEnginesNamesAsync(brand, model);
+        }
+
+
+
         #region Vehicle
         public async Task<IEnumerable<VehicleInfoModel>> GetAllVehiclesAsync()
         {
@@ -144,6 +162,8 @@ namespace CarService.App.Services
             var transmission = await _transmissionRepository.GetByIdAsync(transmissionId);
             await _transmissionRepository.DeleteAsync(transmission);
         }
+
+        
         #endregion
     }
 }

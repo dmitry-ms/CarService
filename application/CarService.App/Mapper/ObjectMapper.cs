@@ -34,12 +34,12 @@ namespace CarService.App.Mapper
     {
         public CarServiceDtoMapper()
         {
-            CreateMap<RegistrationClientModel, Client>();             //.ForMember(...).ReverseMap();
+            CreateMap<RegistrationClientModel, Client>();           
+
             CreateMap<ClientCar, ClientCarModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Vehicle.BrandName))
-                .ForMember(dest => dest.ModelName, opt => opt.MapFrom(src => src.Vehicle.ModelName))
-                .ForMember(dest => dest.MileageKM, opt => opt.MapFrom(src => src.MileageKM));
+                .ForMember(dest => dest.ModelName, opt => opt.MapFrom(src => src.Vehicle.ModelName));
+            CreateMap<AddClientCarModel, ClientCar>();
 
             CreateMap<Vehicle, VehicleInfoModel>();
             CreateMap<Vehicle, VehicleModel>().ReverseMap();
