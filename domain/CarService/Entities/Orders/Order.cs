@@ -10,7 +10,7 @@ namespace CarService.Entities.Orders
     {
         public DateTime DateAdded { get; set; }
         public virtual ClientCar Car { get; set; }
-        public virtual IList<Service> Services { get; set; } = new List<Service>();
+        public virtual IEnumerable<Service> Services { get; set; } = new List<Service>();
         public string Comment { get; set; }
     }
 }

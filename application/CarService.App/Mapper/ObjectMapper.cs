@@ -68,6 +68,7 @@ namespace CarService.App.Mapper
             CreateMap<Transmission, TransmissionInfoModel>()
                 .BeforeMap<ConvertTransmissionTypeToEnumAction>();
 
+            CreateMap<Service, ServiceModel>();                              //ServiceModel проверить где она нужна и почистить
             CreateMap<Service, ServiceInfoModel>()
                 .BeforeMap<ConvertServiceTypeToEnumAction>();            //!!??
             CreateMap<EditServiceModel, Service>();

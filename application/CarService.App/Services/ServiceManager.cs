@@ -43,7 +43,6 @@ namespace CarService.App.Services
                 .ToList();
 
             //var carServices = new List<CarServicesModel>();
-
             //foreach (var service in services)
             //{
             //    if (service.IsAvailableFor(carEntity))
@@ -61,6 +60,18 @@ namespace CarService.App.Services
             //    }
             //}
             //return carServices;
+        }
+
+        public async Task<IEnumerable<GroupedServices>> GetServicesGroupedByType()
+        {
+            var services = ObjectMapper.Mapper.Map<IEnumerable<ServiceModel>>(await _serviceRepository.GetAllAsync());
+
+            return services.GroupBy(s => s.ServiceType)
+                .Select(g => new GroupedServices
+                {
+                    ServiceType = g.Key,
+                    Services = g.ToList()
+                });
         }
 
         public async Task<ServiceInfoModel> CreateServiceAsync(CommonEditServiceModel model)
@@ -106,6 +117,38 @@ namespace CarService.App.Services
         public async Task<ServiceModel> GetServiceByIdAsync(string id)
         {
             return ObjectMapper.Mapper.Map<ServiceModel>(await _serviceRepository.GetByIdAsync(new Guid(id)));
+        }
+
+        public async Task<ServiceBasketModel> GetTotalCostsAsync(IEnumerable<Guid> servicesId, Guid carId)
+        {
+            var car = await _clientCarRepository.GetByIdAsync(carId);
+            var serviceBasket = new ServiceBasketModel();
+            var listServices = new List<CarServicesModel>();
+
+            decimal totalPrice = 0;
+            TimeSpan totalTime = new TimeSpan(0);
+
+            foreach(var item in servicesId)
+            {
+                var serviceEntity = await _serviceRepository.GetByIdAsync(item);
+                var service = new CarServicesModel
+                {
+                    Id = serviceEntity.Id,
+                    ServiceType = serviceEntity.ServiceType,
+                    ServiceName = serviceEntity.ServiceName,
+                    Description = serviceEntity.Description,
+                    Price = serviceEntity.Costs.GetPrice(car),
+                    RequiredTime = serviceEntity.Costs.GetRequiredTime(car)
+                };
+                listServices.Add(service);
+                totalPrice += service.Price;
+                totalTime += service.RequiredTime;
+            }
+            serviceBasket.Services = listServices;
+            serviceBasket.TotalPrice = totalPrice;
+            serviceBasket.TotalTime = totalTime;
+
+            return serviceBasket;
         }
 
         public async Task RemoveServiceAsync(string id)

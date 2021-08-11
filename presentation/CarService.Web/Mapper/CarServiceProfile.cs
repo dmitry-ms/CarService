@@ -18,16 +18,23 @@ namespace CarService.Web.Mapper
             
             CreateMap<CarServiceUser, UserVM>();
 
+            CreateMap<CommonEditServiceViewModel, CommonEditServiceModel>();
             CreateMap<PaginationServiceModel, PaginationServiceViewModel>();
             CreateMap<ServiceInfoModel, ServiceInfoViewModel>();
             CreateMap<CarServicesModel, CarServicesViewModel>();
+            CreateMap<GroupedServices, GroupedServicesVM>();                          //удалить если получится с IGrouping
+            CreateMap<ServiceViewModel, ServiceModel>().ReverseMap();
+            CreateMap<EditServiceViewModel, EditServiceModel>();                      //проверить нужна ли эта связка
+            CreateMap<ServiceBasketModel, ServiceBasketViewModel>();
 
+            #region Vehicle
             CreateMap<PaginationVehicleModel, PaginationVehicleViewModel>();
             CreateMap<VehicleInfoModel, VehicleInfoVM>();            
             CreateMap<EditVehicleVM, EditVehicleModel>();
             CreateMap<VehicleModel, EditVehicleVM>()
                 .ForMember(v => v.EngineId, opt => opt.MapFrom(v => v.Engine.Id))
                 .ForMember(v => v.TransmissionId, opt => opt.MapFrom(v => v.Transmission.Id));
+            #endregion
 
             #region Engine
             CreateMap<EngineInfoModel, EngineInfoVM>();
@@ -69,20 +76,19 @@ namespace CarService.Web.Mapper
                 .ReverseMap();
             #endregion
 
-            
-            CreateMap<EditServiceViewModel, EditServiceModel>();
-
+            #region Costs
             CreateMap<BaseCostsViewModel, CostsModel>();
             CreateMap<CostsByOneCylinderViewModel, CostsByOneCylinderModel>();
             CreateMap<CostsByDriveUnitViewModel, CostsByDriveUnitModel>();
+            #endregion
 
+            #region Parameters
             CreateMap<DieselEngineParameterViewModel, DieselEngineParametersModel>();
             CreateMap<PetrolEngineParameterViewModel, PetrolEngineParametersModel>();
             CreateMap<ElectricEngineParameterViewModel, ElectricEngineParametersModel>();
             CreateMap<EngineParameterViewModel, EngineParametersModel>();
             CreateMap<ICEngineParameterViewModel, ICEngineParametersModel>();
-
-            CreateMap<CommonEditServiceViewModel, CommonEditServiceModel>();
+            #endregion
         }
     }
 }

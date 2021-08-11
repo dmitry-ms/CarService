@@ -1,4 +1,4 @@
-﻿<header>
+﻿<header class="header_opacity">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -18,20 +18,46 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">О нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Наши услуги</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="OurServices">Наши услуги</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Контакты</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav flex-grow-1 justify-content-end">
-                    <li class="nav-item">
-                        <a class="btn btn-primary me-md-2" asp-area="" asp-controller="Account" asp-action="Registration">Регистрация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
-                    </li>
-                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <li class="nav-item">
+                            <a class="btn btn-light me-md-2" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-primary me-md-2" asp-area="Admin" asp-controller="Home" asp-action="Index">Администрирование</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("ServiceMan"))
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-primary me-md-2" asp-area="ServiceMan" asp-controller="Home" asp-action="Index">Мастерская</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <li class="nav-item">
+                            <a class="btn btn-primary me-md-2" asp-area="" asp-controller="Account" asp-action="Registration">Регистрация</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GroupedServicesVM>
+
+@{
+    ViewData["Title"] = "Наши услуги";
+}
+
+<div>
+    <div class="d-inline-block"><h3>Наши усуги</h3></div>
+    <div class="float-end">
+        <a class="btn btn-primary mr-2" asp-area="Client" asp-controller="Home" asp-action="Index">Заказать</a>
+    </div>
+</div>
+
+<div class="row">
+    @if (Model.Any())
+    {
+        <div class="accordion mt-3 col-5" id="accordionExample">
+            @foreach (var group in Model)
+            {
+                if (group.Services.Any())
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(group.ServiceType)" aria-expanded="false" aria-controls="collapse@(group.ServiceType)">
+                                @Html.DisplayFor(modelItem => group.ServiceType)
+                            </button>
+                        </h2>
+                        <div id="collapse@(group.ServiceType)" class="accordion-collapse collapse" aria-labelledby="heading@(group.ServiceType)" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled">
+                                    @foreach (var item in group.Services)
+                                    {
+                                        <li class="m-3">
+                                            <a class="text-decoration-none m-3" data-bs-toggle="collapse" href="#collapse@(item.ServiceName)" role="button" aria-expanded="false" aria-controls="collapse@(item.ServiceName)">
+                                                @Html.DisplayFor(modelItem => item.ServiceName)
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="my-3 col-5">
+            @foreach (var group in Model)
+            {
+                @foreach (var item in group.Services)
+                {
+                    <div class="mb-2">
+                        <div class="collapse collapse-horizontal" id="collapse@(item.ServiceName)">
+                            <div class="card card-body" style="width: 300px;">
+                                <h5>@Html.DisplayFor(modelItem => item.ServiceName)</h5>
+                                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
+
+<page-link page-model="Model.Page" page-action="Index"></page-link>
+
+

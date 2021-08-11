@@ -1,0 +1,36 @@
+﻿@model ServiceBasketViewModel
+
+@if (Model.Services.Any())
+{
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(m => m.Services.First().ServiceName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Services.First().RequiredTime)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Services.First().Price)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Services)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(m => item.ServiceName)</th>
+                    <td>@Html.DisplayFor(m => item.RequiredTime)</td>
+                    <td>@Html.DisplayFor(m => item.Price)</td>
+                </tr>
+            }
+            <tr>
+                <th scope="row">Всего:</th>
+                <td><strong>@Html.DisplayFor(m => m.TotalTime)</strong></td>
+                <td><strong>@Html.DisplayFor(m => m.TotalPrice)</strong></td>
+            </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center">
+        <h4>Корзина пуста</h4>
+        <h6>Выберите и добавте доступные услуги</h6>
+    </div>
+}

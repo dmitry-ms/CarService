@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using CarService.App.Interfaces;
+using CarService.Web.Extentions;
 using CarService.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,15 +23,48 @@ namespace CarService.Web.Areas.Client.Controllers
             _autoMapper = autoMapper;
         }
 
-
-        public async Task<IActionResult> GetAllAvailableServicesForCar(string carId = null)
+        [HttpGet]
+        public async Task<IActionResult> GetAllAvailableServicesForCar(Guid carId)
         {
+            ViewBag.amount = HttpContext.Session.GetBasketCount(carId);
+            ViewBag.basketItems = HttpContext.Session.GetBasketItems(carId);
+            ViewBag.carId = carId;
+
             var carServices = _autoMapper.Map<IEnumerable<CarServicesViewModel>>(
-                await _serviceManager.GetAllServicesForCarAsync(carId));
-
-
+                await _serviceManager.GetAllServicesForCarAsync(carId.ToString()));
 
             return View(carServices);
+        }
+
+        [HttpGet]
+        public IActionResult SubmitOrder(Guid carId)
+        {
+            HttpContext.Session.CleanBasket(carId);
+            //todo: добавить сохранение заказа в бд!!!
+            return RedirectToAction("Index","Home",null);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Basket(Guid carId)
+        {
+            var basketItems = _autoMapper.Map<ServiceBasketViewModel>(
+                await _serviceManager.GetTotalCostsAsync(HttpContext.Session.GetBasketItems(carId), carId));
+
+            return PartialView("BasketPartial",basketItems);
+        }
+
+        [HttpPost]
+        public IActionResult AddServiceToBasket(Guid serviceId, Guid carId)
+        {
+            int amount = HttpContext.Session.AddToBasket(serviceId, carId);
+            return Json(new { serviceId = serviceId, amount = amount });
+        }
+
+        [HttpPost]
+        public IActionResult RemoveServiceFromBasket(Guid serviceId, Guid carId)
+        {
+            int amount = HttpContext.Session.RemoveFromBasket(serviceId, carId);
+            return Json(new { serviceId = serviceId, amount = amount });
         }
     }
 }

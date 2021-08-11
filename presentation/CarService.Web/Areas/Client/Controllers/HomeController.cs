@@ -5,9 +5,7 @@ using CarService.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -59,10 +57,7 @@ namespace CarService.Web.Areas.User.Controllers
         public async Task<IActionResult> GetModels(string brand)
         {
              var modelsNames = await _vehicleService.GetModelNamesAsync(brand);
-            //var result = await _vehicleService.GetModelNamesAsync(brand);
-            //ViewBag.modelNames = new SelectList(result);
 
-            //return PartialView("PickModelPartial");
             return Json(modelsNames);
         }
 

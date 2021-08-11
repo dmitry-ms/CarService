@@ -9,7 +9,6 @@
 <div class="row justify-content-center mt-2">
     <div class="col-md-5">
         <form class="needs-validation" id="add_ClientCar" method="post" asp-controller="Home" asp-action="AddCar" asp-antiforgery="true" novalidate>
-            @*<div class="validation" asp-validation-summary="All"></div>*@
             <div class="form-floating mb-2">
                 <select onchange="getModels(this.value)" id="modelBrand" asp-for="Brand" asp-items="ViewBag.brandNames" class="form-select" aria-label="CarBrand">
                     <option selected disabled>Выберите марку</option>
@@ -70,7 +69,7 @@
             </div>
             <div class="form-group mb-2">
                 <input type="submit" value="Добавить" class="btn btn-primary" />
-                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться к списку</a>
+                <a class="btn btn-outline-danger float-end" asp-action="Index">Вернуться в гараж</a>
             </div>
         </form>
     </div>

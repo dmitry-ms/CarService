@@ -7,7 +7,7 @@ namespace CarService.Web.Models
     {
         [Display(Name = "Название услуги")]
         [Required(ErrorMessage = "Введите название услуги")]
-        //[Remote(action: "CheckNameService", controller: "Service", ErrorMessage = "Такой услуга уже существует")]
+        //[Remote(action: "CheckNameService", controller: "Service", ErrorMessage = "Такая услуга уже существует")]
         [StringLength(50, MinimumLength = 10, ErrorMessage = "Длина строки должна быть от 10 до 50 символов")]
         public string ServiceName { get; set; }
 

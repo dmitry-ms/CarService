@@ -1,12 +1,26 @@
-﻿using CarService.Web.Models;
+﻿using AutoMapper;
+using CarService.App.Interfaces;
+using CarService.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarService.Web.Controllers
 {
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger;
+
+        private readonly IServiceManager _servicesManage;
+        private readonly IMapper _mapper;
+
+        public HomeController(IServiceManager servicesManager, IMapper mapper)
+        {
+            _servicesManage = servicesManager;
+            _mapper = mapper;
+        }
 
         public ActionResult Index()
         {           
@@ -22,6 +36,20 @@ namespace CarService.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> OurServices()
+        {
+            var services = _mapper.Map<IEnumerable<GroupedServicesVM>>(
+                await _servicesManage.GetServicesGroupedByType());
+
+            return View(services);
+        }
+
+        [HttpGet]
+        public IActionResult Contacts()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
