@@ -6,6 +6,7 @@ using CarService.Entities.CarsServices;
 using CarService.Entities.CarsServices.CarParameters;
 using CarService.Entities.CarsServices.CarParameters.Engine;
 using CarService.Entities.CarsServices.Costs;
+using CarService.Entities.Orders;
 using CarService.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,15 @@ namespace CarService.App.Services
     {
         private readonly IServiceRepository _serviceRepository;
         private readonly IClientCarRepository _clientCarRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public ServiceManager(IServiceRepository serviceRepository, IClientCarRepository clientCarRepository)
+        public ServiceManager(IServiceRepository serviceRepository,
+            IClientCarRepository clientCarRepository,
+            IOrderRepository orderRepository)
         {
             _clientCarRepository = clientCarRepository;
             _serviceRepository = serviceRepository;
+            _orderRepository = orderRepository;
         }
 
         public async Task<IEnumerable<CarServicesModel>> GetAllServicesForCarAsync(string carId)
@@ -41,7 +46,7 @@ namespace CarService.App.Services
                     RequiredTime = s.GetRequiredTime(carEntity)
                 })
                 .ToList();
-
+            #region Comment
             //var carServices = new List<CarServicesModel>();
             //foreach (var service in services)
             //{
@@ -60,6 +65,20 @@ namespace CarService.App.Services
             //    }
             //}
             //return carServices;
+            #endregion
+        }
+
+        public async Task AddOrderAsync(Guid carId, IEnumerable<Guid> servicesIdList)
+        {
+            var order = new Order
+            {
+                Id = Guid.NewGuid(),
+                DateAdded = DateTime.UtcNow,
+                Car = await _clientCarRepository.GetByIdAsync(carId),
+                Services = await _serviceRepository.GetAllByIdAsync(servicesIdList)
+            };
+
+            await _orderRepository.AddAsync(order);
         }
 
         public async Task<IEnumerable<GroupedServices>> GetServicesGroupedByType()

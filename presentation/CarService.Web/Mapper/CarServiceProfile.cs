@@ -18,6 +18,8 @@ namespace CarService.Web.Mapper
             
             CreateMap<CarServiceUser, UserVM>();
 
+            CreateMap<OrderModel, OrderViewModel>();
+
             CreateMap<CommonEditServiceViewModel, CommonEditServiceModel>();
             CreateMap<PaginationServiceModel, PaginationServiceViewModel>();
             CreateMap<ServiceInfoModel, ServiceInfoViewModel>();

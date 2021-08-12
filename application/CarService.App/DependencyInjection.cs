@@ -10,9 +10,9 @@ namespace CarService.App
         {
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IClientCarService, ClientCarService>();
-            services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IServiceManager, ServiceManager>();
+            services.AddTransient<IOrderService, OrderService>();
 
             return services;
         }

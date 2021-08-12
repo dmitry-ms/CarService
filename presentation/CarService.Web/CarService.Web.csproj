@@ -80,8 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ServiceMan\Controllers\" />
-    <Folder Include="Areas\ServiceMan\Views\" />
+    <Folder Include="Areas\Client\Views\Shared\" />
   </ItemGroup>
 
 </Project>

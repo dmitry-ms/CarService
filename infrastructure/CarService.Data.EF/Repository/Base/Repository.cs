@@ -4,6 +4,7 @@ using CarService.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarService.Data.EF.Repository.Base
@@ -27,6 +28,11 @@ namespace CarService.Data.EF.Repository.Base
         public virtual async Task<T> GetByIdAsync(Guid id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllByIdAsync(IEnumerable<Guid> idList)
+        {
+            return await _dbContext.Set<T>().Where(i => idList.Contains(i.Id)).ToListAsync();
         }
 
         public async Task<T> AddAsync(T entity)

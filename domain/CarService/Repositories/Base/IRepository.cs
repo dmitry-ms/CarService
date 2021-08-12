@@ -7,6 +7,7 @@ namespace CarService.Repositories.Base
     public interface IRepository<T> where T : class //todo: T: Entity
     {
         Task<IReadOnlyList<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllByIdAsync(IEnumerable<Guid> idList);
         Task<int> GetCountAsync();
         Task<T> GetByIdAsync(Guid id);
         Task<T> AddAsync(T entity);

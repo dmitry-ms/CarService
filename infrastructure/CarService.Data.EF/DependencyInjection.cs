@@ -35,7 +35,7 @@ namespace CarService.Data.EF
                 options.Password.RequireDigit = false;
             })
                 .AddEntityFrameworkStores<CarServiceDbContext>()
-                .AddDefaultTokenProviders();                        //todo: maybe this is unnecessary
+                .AddDefaultTokenProviders();                      
 
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
@@ -46,6 +46,7 @@ namespace CarService.Data.EF
             services.AddScoped<ITransmissionRepository, TransmissionRepository>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
 
             return services;

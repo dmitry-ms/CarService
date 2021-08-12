@@ -37,10 +37,10 @@ namespace CarService.Web.Areas.Client.Controllers
         }
 
         [HttpGet]
-        public IActionResult SubmitOrder(Guid carId)
+        public async Task<IActionResult> SubmitOrder(Guid carId)
         {
+            await _serviceManager.AddOrderAsync(carId, HttpContext.Session.Get<IEnumerable<Guid>>(carId.ToString()));
             HttpContext.Session.CleanBasket(carId);
-            //todo: добавить сохранение заказа в бд!!!
             return RedirectToAction("Index","Home",null);
         }
 

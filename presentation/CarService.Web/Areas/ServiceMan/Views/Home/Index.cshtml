@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OrderViewModel>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(m => m.DateAdded)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Car.BrandName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Car.ModelName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Services)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(m => item.DateAdded)</th>
+                    <td>@Html.DisplayFor(m => item.Car.BrandName)</td>
+                    <td>@Html.DisplayFor(m => item.Car.ModelName)</td>
+                    <td>@Html.DisplayFor(m => item.Services.First().ServiceName)</td>
+                    <td>
+                        <button class="btn btn-outline-primary float-end btn-sm" disabled>Выполнено</button>
+                    </td>
+                    @foreach (var serviceItem in item.Services.Skip(1))
+                    {
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td>@Html.DisplayFor(m => serviceItem.ServiceName)</td>
+                        <td></td>
+                    </tr>
+                }
+                    </tr>
+                }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center">
+        <h3>Заказов нету</h3>
+    </div>
+}

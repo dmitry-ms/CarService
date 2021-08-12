@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,15 +23,11 @@ namespace CarService.Web
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
-            services.AddAutoMapper(typeof(CarServiceProfile));
-            
+            services.AddAutoMapper(typeof(CarServiceProfile));           
             
             services.AddControllersWithViews(); 
-
-
-            services.AddDistributedMemoryCache();     //experement
-            services.AddSession();                    //
-
+            services.AddDistributedMemoryCache();     
+            services.AddSession();        
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,7 +49,7 @@ namespace CarService.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSession();            //experement
+            app.UseSession();         
 
             app.UseEndpoints(endpoints =>
             {

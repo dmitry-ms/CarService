@@ -30,7 +30,7 @@ namespace CarService.App.Services
             var result = await _identityService.CreateUserAsync(model.Email, model.Password, RoleNames.CLIENT, client);
             if (!result.Result.Succeeded)
             {
-                //throw new BadRequestException(registerResult.Errors.First().Description);
+                //throw new BadRequestException();
             }
             await _clientRepository.SaveChangesAsync();
         }

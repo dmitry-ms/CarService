@@ -13,6 +13,7 @@ namespace CarService.App.Interfaces
         Task<IEnumerable<GroupedServices>> GetServicesGroupedByType();
         Task<IEnumerable<CarServicesModel>> GetAllServicesForCarAsync(string carId);
         Task<ServiceInfoModel> CreateServiceAsync(CommonEditServiceModel model);
+        Task AddOrderAsync(Guid carId, IEnumerable<Guid> servicesIdList);
         Task<ServiceModel> GetServiceByIdAsync(string serviceId);    
         Task<ServiceBasketModel> GetTotalCostsAsync(IEnumerable<Guid> servicesId, Guid carId);
         Task<ServiceModel> EditServiceAsync(string serviceId, EditServiceModel model);

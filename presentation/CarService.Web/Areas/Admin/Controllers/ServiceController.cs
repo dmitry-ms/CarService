@@ -136,9 +136,9 @@ namespace CarService.Web.Controllers.AdminArea
         }
 
         [HttpGet]
-        public async Task<IActionResult> Remove(string vehicleId)
+        public async Task<IActionResult> Remove(string serviceId)
         {
-            await _serviceManager.RemoveServiceAsync(vehicleId);
+            await _serviceManager.RemoveServiceAsync(serviceId);
             return RedirectToAction("Index");
         }
     }
