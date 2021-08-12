@@ -4,14 +4,18 @@
 }
 
 <h2>Список пользователей</h2>
-<table class="table">
-    @foreach (var user in Model)
-    {
-        <tr>
-            <td>@user.Email</td>
-            <td>
-                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="col-6">
+    <table class="table">
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    <a class="btn btn-sm btn-danger float-end disabled me-2" asp-action="Remove" asp-route-userid="@user.Id">Удалить</a>
+                    <a class="btn btn-sm btn-warning float-end disabled me-2" asp-action="" asp-route-userid="@user.Id">Сменить пароль</a>
+                    <a class="btn btn-sm btn-primary float-end me-2" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

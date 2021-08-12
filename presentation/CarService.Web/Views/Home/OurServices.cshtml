@@ -31,7 +31,7 @@
                                     @foreach (var item in group.Services)
                                     {
                                         <li class="m-3">
-                                            <a class="text-decoration-none m-3" data-bs-toggle="collapse" href="#collapse@(item.ServiceName)" role="button" aria-expanded="false" aria-controls="collapse@(item.ServiceName)">
+                                            <a class="text-decoration-none m-3" data-bs-toggle="collapse" href="#collapse@(item.Id)" role="button" aria-expanded="false" aria-controls="collapse@(item.ServiceName)">
                                                 @Html.DisplayFor(modelItem => item.ServiceName)
                                             </a>
                                         </li>
@@ -49,7 +49,7 @@
                 @foreach (var item in group.Services)
                 {
                     <div class="mb-2">
-                        <div class="collapse collapse-horizontal" id="collapse@(item.ServiceName)">
+                        <div class="collapse collapse-horizontal" id="collapse@(item.Id)">
                             <div class="card card-body" style="width: 300px;">
                                 <h5>@Html.DisplayFor(modelItem => item.ServiceName)</h5>
                                 <p>@Html.DisplayFor(modelItem => item.Description)</p>

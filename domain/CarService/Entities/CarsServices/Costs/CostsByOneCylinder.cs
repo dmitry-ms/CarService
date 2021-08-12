@@ -15,7 +15,7 @@ namespace CarService.Entities.CarsServices.Costs
         }
         public override TimeSpan GetRequiredTime(ClientCar car)
         {
-            return TimeByOneCylinder * GetNumberCylinders(car);
+            return TimeByOneCylinder.Multiply(GetNumberCylinders(car));
         }
         public override bool IsAvailableFor(ClientCar car)
         {
